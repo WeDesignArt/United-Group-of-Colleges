@@ -1,0 +1,1011 @@
+/* ==========================================================================
+   United Group of Colleges - Stylesheet
+   Font: Poppins (Google Fonts) | Icons: Font Awesome
+   ========================================================================== */
+
+:root {
+  --navy: #120fa3;
+  --navy-dark: #0d0b83;
+  --text-dark: #16161f;
+  --text-body: #55586b;
+  --text-muted: #8a8ca0;
+  --cream-bg: #f7f6f1;
+  --white: #ffffff;
+  --border-light: #e7e6e1;
+
+  --container-width: 1200px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--text-body);
+  line-height: 1.6;
+  background-color: var(--white);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+
+}
+
+.text-accent {
+  color: var(--navy);
+}
+
+h1, h2, h3 {
+  color: var(--text-dark);
+  font-weight: 700;
+  line-height: 1.25;
+
+}
+
+/* ==========================================================================
+   Page Hero (About Us)
+   ========================================================================== */
+
+.page-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.page-hero__image {
+  width: 100%;
+  height: auto;
+}
+
+.page-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+}
+
+.page-hero__title {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--white);
+  font-size: 2.25rem;
+  margin: 0;
+}
+
+@media (max-width: 576px) {
+  .page-hero__title {
+    font-size: 1.5rem;
+  }
+}
+
+/* ==========================================================================
+   Simpler Way Section
+   ========================================================================== */
+
+.simpler-way-section {
+  background-color: var(--cream-bg);
+  padding: 80px 0;
+}
+
+.simpler-way-rows {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.simpler-way-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 48px;
+}
+
+.simpler-way-row + .simpler-way-row {
+  margin-top: 56px;
+}
+
+.simpler-way-row--reverse .simpler-way-image {
+  order: 2;
+}
+
+.simpler-way-row--reverse .simpler-way-content {
+  order: 1;
+}
+
+.simpler-way-image img {
+  width: 100%;
+  /* height: 230px; */
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+}
+
+.simpler-way-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background-color: var(--navy);
+  border-radius: 12px;
+  margin-bottom: 16px;
+}
+
+.simpler-way-icon img {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.simpler-way-content h3 {
+  font-size: 1.15rem;
+  margin-bottom: 10px;
+}
+
+.simpler-way-content p {
+  font-size: 0.9rem;
+  color: var(--text-body);
+}
+
+@media (max-width: 900px) {
+  .simpler-way-row {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .simpler-way-row--reverse .simpler-way-image,
+  .simpler-way-row--reverse .simpler-way-content {
+    order: 0;
+  }
+
+  .simpler-way-row + .simpler-way-row {
+    margin-top: 40px;
+  }
+}
+
+/* ==========================================================================
+   Regional Investors Section
+   ========================================================================== */
+
+   .regional-model-card{
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+   }
+
+   .regional-icon-box {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    width: 44px;
+    height: 44px;
+    background-color: var(--white);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.18);
+    z-index: 2;
+   }
+
+   .regional-icon-box img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+   }
+
+   .model-card__body .regional-model-label {
+    color: var(--navy);
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   Franchise Works (Timeline) Section
+   ========================================================================== */
+
+.franchise-section {
+  background-color: #01048F;
+  padding: 90px 0;
+}
+
+.franchise-title {
+  color: var(--white);
+  text-align: center;
+  font-size: 2.25rem;
+  margin-bottom: 64px;
+}
+
+.timeline {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-left: 2px dashed rgba(255, 255, 255, 0.35);
+  transform: translateX(-50%);
+}
+
+.timeline-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 64px 1fr;
+  align-items: center;
+  column-gap: 28px;
+}
+
+.timeline-row + .timeline-row {
+  margin-top: 36px;
+}
+
+.timeline-icon {
+  position: relative;
+  z-index: 1;
+  width: 44px;
+  height: 44px;
+  margin: 0 auto;
+  border-radius: 50%;
+  background-color: #01048F;
+  border: 5px solid var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timeline-icon img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.timeline-text h3 {
+  color: var(--white);
+  font-size: 1.05rem;
+  margin-bottom: 8px;
+}
+
+.timeline-text p {
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+.timeline-text--left {
+  text-align: right;
+}
+
+.timeline-text--right {
+  text-align: left;
+}
+
+@media (max-width: 768px) {
+  .timeline::before {
+    left: 22px;
+  }
+
+  .timeline-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .timeline-icon {
+    order: 1;
+    flex-shrink: 0;
+    margin: 0;
+  }
+
+  .timeline-text--left,
+  .timeline-text--right {
+    order: 2;
+    flex: 1;
+    text-align: left;
+  }
+
+  .timeline-text--left:empty,
+  .timeline-text--right:empty {
+    display: none;
+  }
+}
+
+/* ==========================================================================
+   Campus Models Section
+   ========================================================================== */
+
+.models-section {
+  background-color: var(--cream-bg);
+  padding: 80px 0 60px;
+}
+
+.section-heading {
+  text-align: center;
+  margin: 0 auto 48px;
+}
+
+.section-heading h2 {
+  font-size: 3.5rem;
+  margin-bottom: 16px;
+  /* max-width: 900px; */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-heading p {
+  font-size: 1rem;
+  color: var(--text-body);
+  /* max-width: 620px; */
+  margin: 0 auto;
+}
+
+.models-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.model-card {
+  background-color: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(20, 20, 60, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.model-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(20, 20, 60, 0.12);
+}
+
+.model-card__image {
+  height: 170px;
+  overflow: hidden;
+}
+
+.model-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.model-card__body {
+  padding: 24px;
+}
+
+.model-card__label {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+}
+
+.model-card__body h3 {
+  font-size: 1.25rem;
+  margin-bottom: 10px;
+}
+
+.model-card__body p {
+  font-size: 0.9rem;
+}
+
+/* Highlighted middle card */
+.model-card--active {
+  background-color: var(--navy);
+}
+
+.model-card--active .model-card__label,
+.model-card--active .model-card__body h3,
+.model-card--active .model-card__body p {
+  color: var(--white);
+}
+
+.model-card--active .model-card__label {
+  opacity: 0.75;
+}
+
+.model-card--active .model-card__body p {
+  opacity: 0.85;
+}
+
+.models-footnote {
+  text-align: center;
+  max-width: 620px;
+  margin: 44px auto 0;
+  font-size: 1rem;
+  color: var(--text-muted);
+}
+
+/* ==========================================================================
+   Why South Punjab Section
+   ========================================================================== */
+
+.why-section {
+  background-color: var(--white);
+  padding: 90px 0;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.why-image {
+  position: relative;
+}
+
+.why-image img {
+  width: 100%;
+  border-radius: var(--radius-lg);
+}
+
+.why-image__badge {
+    position: absolute;
+    right: -47px;
+    bottom: -38px;
+    max-width: 304px;
+    background-color: var(--navy);
+    color: var(--white);
+    border-radius: var(--radius-md);
+    padding: 34px 20px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    box-shadow: 0 12px 24px rgba(13, 11, 131, 0.3);
+}
+
+.why-image__badge-icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+}
+
+.why-image__badge strong {
+  display: block;
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.why-image__badge p {
+  font-size: 0.8rem;
+  opacity: 0.85;
+  line-height: 1.4;
+}
+
+.why-content h2 {
+  font-size: 3.5rem;
+  margin-bottom: 24px;
+}
+
+.why-content p {
+  font-size: 1rem;
+  margin-bottom: 18px;
+}
+
+.highlight-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background-color: var(--cream-bg);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  margin-top: 28px;
+}
+
+.highlight-box__icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--white);
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+}
+
+.highlight-box strong {
+  display: block;
+  color: var(--text-dark);
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+}
+
+.highlight-box p {
+  font-size: 0.85rem;
+  margin: 0;
+  color: var(--text-body);
+}
+
+/* ==========================================================================
+   About Us Page - Trust / Franchise Model / Quality Assurance Sections
+   ========================================================================== */
+
+.trust-section {
+  background-color: var(--white);
+}
+
+.franchise-model-section {
+  background-color: var(--cream-bg);
+}
+
+.quality-section {
+  background-color: var(--cream-bg);
+}
+
+.why-grid--reverse .why-image {
+  order: 2;
+}
+
+.why-grid--reverse .why-content {
+  order: 1;
+}
+
+.info-list-title {
+  color: var(--text-dark);
+  font-size: 1rem;
+  margin-bottom: 14px;
+}
+
+.info-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.info-list li {
+  position: relative;
+  padding-left: 18px;
+  font-size: 0.9rem;
+  color: var(--text-body);
+}
+
+.info-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--navy);
+}
+
+.info-list li strong {
+  color: var(--text-dark);
+}
+
+/* ==========================================================================
+   Core Pillars Section
+   ========================================================================== */
+
+.pillars-section {
+  background-color: var(--cream-bg);
+  padding: 90px 0;
+}
+
+.pillars-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.pillar-card {
+  background-color: var(--navy);
+  border-radius: 20px;
+  padding: 28px 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.pillar-icon {
+  flex-shrink: 0;
+  /* width: 50px;
+  height: 50px;
+  background-color: var(--white); */
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pillar-icon img {
+  /* width: 24px;
+  height: 24px; */
+  object-fit: contain;
+  
+}
+
+.pillar-divider {
+    flex-shrink: 0;
+    width: 1px;
+    align-self: stretch;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+.pillar-content h3 {
+  color: var(--white);
+  font-size: 1.2rem;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+
+.pillar-content p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  margin: 0;
+}
+
+/* ==========================================================================
+   Who This Opportunity Is For Section
+   ========================================================================== */
+
+.opportunity-section {
+  background-color: var(--cream-bg);
+  padding: 90px 0;
+}
+
+.opportunity-card {
+  background-color: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  align-items: stretch;
+  box-shadow: 0 4px 24px rgba(20, 20, 60, 0.06);
+}
+
+.opportunity-image {
+  height: 100%;
+  min-height: 420px;
+}
+
+.opportunity-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.opportunity-content {
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.opportunity-content h2 {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.opportunity-intro {
+  font-size: 0.95rem;
+  margin-bottom: 24px;
+}
+
+.opportunity-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.opportunity-list li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background-color: var(--cream-bg);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  font-size: 0.9rem;
+  color: var(--text-body);
+}
+
+.check-icon {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--navy);
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+}
+
+/* ==========================================================================
+   CTA Section
+   ========================================================================== */
+
+.cta-section {
+  background-color: var(--navy-dark);
+  background-image: url('../images/blue_background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 110px 0;
+  text-align: center;
+}
+
+.cta-content {
+  max-width: 800px;
+}
+
+.cta-content h2 {
+  color: var(--white);
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.cta-content p {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1rem;
+  margin-bottom: 36px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: var(--white);
+  color: var(--navy);
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 16px 32px;
+  border-radius: 50px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary i {
+  font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.footer {
+  background-color: var(--white);
+  padding: 70px 0 32px;
+  text-align: center;
+}
+
+.footer-logo img {
+  margin: 0 auto 20px;
+  /* max-width: 260px; */
+}
+
+.footer-desc {
+  max-width: 560px;
+  margin: 0 auto;
+  font-size: 0.9rem;
+  color: var(--text-body);
+}
+
+.footer-divider {
+  border: none;
+  border-top: 1px solid var(--border-light);
+  margin: 32px 0;
+}
+
+.footer-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.footer-nav a {
+  font-size: 1rem;
+  color: var(--text-dark);
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.footer-nav a:hover {
+  color: var(--navy);
+}
+
+.footer-email {
+  font-size: 0.9rem;
+  color: var(--text-body);
+  margin-bottom: 24px;
+}
+
+.footer-email span {
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.footer-social {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+}
+
+.footer-social a {
+  color: var(--text-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer-social a:hover {
+  color: var(--navy);
+  transform: translateY(-3px);
+}
+
+.footer-copy {
+  font-size: 0.8rem;
+  color: var(--navy);
+  font-weight: 500;
+}
+
+/* ==========================================================================
+   Responsive - Tablet (<=1024px)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .why-grid {
+    gap: 40px;
+  }
+
+  .opportunity-content {
+    padding: 36px;
+  }
+}
+
+/* ==========================================================================
+   Responsive - Mobile/Tablet (<=900px)
+   ========================================================================== */
+
+@media (max-width: 900px) {
+  .models-grid {
+    grid-template-columns: 1fr;
+    max-width: 460px;
+    margin: 0 auto;
+  }
+
+  .why-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .why-image__badge {
+    position: static;
+    margin-top: 15px;
+    margin-left: auto;
+    margin-right: 24px;
+  }
+
+  .why-content {
+    margin-top: 60px;
+  }
+
+  .why-grid--reverse .why-image,
+  .why-grid--reverse .why-content {
+    order: 0;
+  }
+
+  .opportunity-card {
+    grid-template-columns: 1fr;
+  }
+
+  .opportunity-image {
+    min-height: 280px;
+  }
+
+  .pillars-grid {
+    grid-template-columns: 1fr;
+    max-width: 460px;
+    margin: 0 auto;
+  }
+}
+
+/* ==========================================================================
+   Responsive - Mobile (<=576px)
+   ========================================================================== */
+
+@media (max-width: 576px) {
+  .container {
+    padding: 0 18px;
+  }
+
+  .models-section,
+  .why-section,
+  .opportunity-section {
+    padding: 56px 0;
+  }
+
+  .section-heading h1 {
+    font-size: 1.85rem;
+  }
+
+  .why-content h2 {
+    font-size: 1.7rem;
+  }
+
+  .opportunity-content h2 {
+    font-size: 1.6rem;
+  }
+
+  .opportunity-content {
+    padding: 28px 20px;
+  }
+
+  .why-image__badge {
+    max-width: 100%;
+    margin-right: 0;
+    flex-direction: row;
+  }
+
+  .cta-section {
+    padding: 70px 0;
+  }
+
+  .cta-content h2 {
+    font-size: 1.9rem;
+  }
+
+  .btn-primary {
+    padding: 14px 24px;
+    font-size: 0.85rem;
+  }
+
+  .footer-nav {
+    gap: 16px 24px;
+  }
+
+  .footer {
+    padding: 50px 0 24px;
+  }
+}
