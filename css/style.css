@@ -982,6 +982,11 @@ h3 {
   margin-bottom: 36px;
 }
 
+.cta-content h4 {
+  color: var(--white);
+  /* margin-bottom: 20px; */
+}
+
 .btn-primary {
   display: inline-flex;
   align-items: center;
