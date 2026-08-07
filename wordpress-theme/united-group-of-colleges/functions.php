@@ -115,11 +115,15 @@ function ugc_image_field( $field_name, $fallback_alt = '' ) {
 }
 
 /**
- * Same as ugc_image_field(), but reads an image sub-field from inside the
- * current have_rows()/the_row() repeater iteration via get_sub_field().
+ * Same as ugc_image_field(), but pulls the image out of an already-fetched
+ * Group field array (e.g. `$row = get_field( 'card_1' ); ugc_image_from_group( $row, 'image' )`).
+ * Used everywhere a fixed-position Group field stands in for what would
+ * otherwise be a repeater row (this theme targets ACF free, which doesn't
+ * include the Repeater field type — Group is the free-tier equivalent for
+ * a fixed number of items).
  */
-function ugc_image_field_sub( $field_name, $fallback_alt = '' ) {
-	$img = get_sub_field( $field_name );
+function ugc_image_from_group( $group, $key, $fallback_alt = '' ) {
+	$img = is_array( $group ) && isset( $group[ $key ] ) ? $group[ $key ] : null;
 	if ( is_array( $img ) && ! empty( $img['url'] ) ) {
 		return array( $img['url'], $img['alt'] ? $img['alt'] : $fallback_alt );
 	}

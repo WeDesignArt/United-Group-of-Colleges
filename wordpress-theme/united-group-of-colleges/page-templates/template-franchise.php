@@ -25,6 +25,11 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image' );
 <!-- hero end -->
 
 <!-- ===================== OPPORTUNITY ===================== -->
+<?php
+$intro_items = array_filter( array(
+	get_field( 'intro_item_1' ), get_field( 'intro_item_2' ), get_field( 'intro_item_3' ), get_field( 'intro_item_4' ),
+), function ( $i ) { return ! empty( $i['label'] ); } );
+?>
 <section class="section_content_left">
 	<div class="container">
 		<div class="section_content_row">
@@ -40,13 +45,13 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image' );
 					<h3 class="section_subtitle"><?php echo esc_html( get_field( 'intro_subtitle' ) ); ?></h3>
 				<?php endif; ?>
 
-				<?php if ( have_rows( 'intro_list' ) ) : ?>
+				<?php if ( $intro_items ) : ?>
 					<ul class="section_list">
-						<?php while ( have_rows( 'intro_list' ) ) : the_row(); ?>
+						<?php foreach ( $intro_items as $item ) : ?>
 							<li>
-								<strong><?php echo esc_html( get_sub_field( 'label' ) ); ?></strong> <?php echo esc_html( get_sub_field( 'text' ) ); ?>
+								<strong><?php echo esc_html( $item['label'] ); ?></strong> <?php echo esc_html( $item['text'] ); ?>
 							</li>
-						<?php endwhile; ?>
+						<?php endforeach; ?>
 					</ul>
 				<?php endif; ?>
 			</div>
@@ -63,28 +68,29 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image' );
 </section>
 
 <!-- ===================== DIVISION OF RESPONSIBILITIES ===================== -->
+<?php
+$col1_items = array_filter( array(
+	get_field( 'division_col1_item_1' ), get_field( 'division_col1_item_2' ), get_field( 'division_col1_item_3' ),
+	get_field( 'division_col1_item_4' ), get_field( 'division_col1_item_5' ),
+) );
+$col2_items = array_filter( array(
+	get_field( 'division_col2_item_1' ), get_field( 'division_col2_item_2' ), get_field( 'division_col2_item_3' ),
+	get_field( 'division_col2_item_4' ), get_field( 'division_col2_item_5' ), get_field( 'division_col2_item_6' ), get_field( 'division_col2_item_7' ),
+) );
+?>
 <section class="division_section section_gray">
 	<div class="container">
 		<?php ugc_accent_heading( 'division_heading', 'h2', 'section_title text-center' ); ?>
 
 		<div class="division_table">
 
-			<?php
-			$col1_items = get_field( 'division_col1_items' );
-			$col2_items = get_field( 'division_col2_items' );
-			$col1_count = is_array( $col1_items ) ? count( $col1_items ) : 0;
-			$col2_count = is_array( $col2_items ) ? count( $col2_items ) : 0;
-			?>
-
 			<div class="division_col">
 				<h3 class="division_head"><?php echo esc_html( get_field( 'division_col1_title' ) ); ?></h3>
 				<ul class="division_list">
-					<?php if ( have_rows( 'division_col1_items' ) ) : ?>
-						<?php while ( have_rows( 'division_col1_items' ) ) : the_row(); ?>
-							<li><?php echo esc_html( get_sub_field( 'text' ) ); ?></li>
-						<?php endwhile; ?>
-					<?php endif; ?>
-					<?php for ( $i = 0; $i < max( 0, $col2_count - $col1_count ); $i++ ) : ?>
+					<?php foreach ( $col1_items as $text ) : ?>
+						<li><?php echo esc_html( $text ); ?></li>
+					<?php endforeach; ?>
+					<?php for ( $i = 0; $i < max( 0, count( $col2_items ) - count( $col1_items ) ); $i++ ) : ?>
 						<li class="is_empty" aria-hidden="true">&ndash;</li>
 					<?php endfor; ?>
 				</ul>
@@ -93,12 +99,10 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image' );
 			<div class="division_col">
 				<h3 class="division_head"><?php echo esc_html( get_field( 'division_col2_title' ) ); ?></h3>
 				<ul class="division_list">
-					<?php if ( have_rows( 'division_col2_items' ) ) : ?>
-						<?php while ( have_rows( 'division_col2_items' ) ) : the_row(); ?>
-							<li><?php echo esc_html( get_sub_field( 'text' ) ); ?></li>
-						<?php endwhile; ?>
-					<?php endif; ?>
-					<?php for ( $i = 0; $i < max( 0, $col1_count - $col2_count ); $i++ ) : ?>
+					<?php foreach ( $col2_items as $text ) : ?>
+						<li><?php echo esc_html( $text ); ?></li>
+					<?php endforeach; ?>
+					<?php for ( $i = 0; $i < max( 0, count( $col1_items ) - count( $col2_items ) ); $i++ ) : ?>
 						<li class="is_empty" aria-hidden="true">&ndash;</li>
 					<?php endfor; ?>
 				</ul>
@@ -109,7 +113,10 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image' );
 </section>
 
 <!-- ===================== CAMPUS MODELS SECTION ===================== -->
-<?php if ( have_rows( 'models_cards' ) ) : ?>
+<?php
+$models_cards = array_filter( array( get_field( 'models_card_1' ), get_field( 'models_card_2' ), get_field( 'models_card_3' ) ), function ( $c ) { return ! empty( $c['title'] ); } );
+?>
+<?php if ( $models_cards ) : ?>
 <section class="models-section">
 	<div class="container">
 		<div class="section-heading">
@@ -117,8 +124,8 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image' );
 		</div>
 
 		<div class="models-grid">
-			<?php while ( have_rows( 'models_cards' ) ) : the_row(); ?>
-				<?php list( $mc_img, $mc_img_alt ) = ugc_image_field_sub( 'image', get_sub_field( 'title' ) ); ?>
+			<?php foreach ( $models_cards as $card ) : ?>
+				<?php list( $mc_img, $mc_img_alt ) = ugc_image_from_group( $card, 'image', $card['title'] ); ?>
 				<div class="model-card">
 					<div class="model-card__image">
 						<?php if ( $mc_img ) : ?>
@@ -126,12 +133,12 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image' );
 						<?php endif; ?>
 					</div>
 					<div class="model-card__body">
-						<span class="model-card__label"><?php echo esc_html( get_sub_field( 'label' ) ); ?></span>
-						<h3><?php echo esc_html( get_sub_field( 'title' ) ); ?></h3>
-						<p><?php echo esc_html( get_sub_field( 'text' ) ); ?></p>
+						<span class="model-card__label"><?php echo esc_html( $card['label'] ); ?></span>
+						<h3><?php echo esc_html( $card['title'] ); ?></h3>
+						<p><?php echo esc_html( $card['text'] ); ?></p>
 					</div>
 				</div>
-			<?php endwhile; ?>
+			<?php endforeach; ?>
 		</div>
 
 	</div>
@@ -139,27 +146,34 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image' );
 <?php endif; ?>
 
 <!-- ===================== OVERVIEW ===================== -->
-<?php if ( have_rows( 'overview_items' ) ) : ?>
+<?php
+$overview_items = array_filter( array( get_field( 'overview_item_1' ), get_field( 'overview_item_2' ), get_field( 'overview_item_3' ), get_field( 'overview_item_4' ) ), function ( $i ) { return ! empty( $i['text'] ); } );
+?>
+<?php if ( $overview_items ) : ?>
 <section class="overview_section">
 	<div class="container">
 		<div class="overview_grid">
-			<?php while ( have_rows( 'overview_items' ) ) : the_row(); ?>
-				<?php list( $ov_icon, $ov_icon_alt ) = ugc_image_field_sub( 'icon', 'icon' ); ?>
+			<?php foreach ( $overview_items as $item ) : ?>
+				<?php list( $ov_icon, $ov_icon_alt ) = ugc_image_from_group( $item, 'icon', 'icon' ); ?>
 				<div class="overview_item">
 					<span class="overview_icon">
 						<?php if ( $ov_icon ) : ?>
 							<img src="<?php echo esc_url( $ov_icon ); ?>" alt="<?php echo esc_attr( $ov_icon_alt ); ?>">
 						<?php endif; ?>
 					</span>
-					<p class="overview_text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></p>
+					<p class="overview_text"><?php echo esc_html( $item['text'] ); ?></p>
 				</div>
-			<?php endwhile; ?>
+			<?php endforeach; ?>
 		</div>
 	</div>
 </section>
 <?php endif; ?>
 
 <!-- ===================== FINANCIAL OVERVIEW + SUPPORT ===================== -->
+<?php
+$finance_items = array_filter( array( get_field( 'finance_item_1' ), get_field( 'finance_item_2' ), get_field( 'finance_item_3' ) ), function ( $i ) { return ! empty( $i['title'] ); } );
+$support_items = array_filter( array( get_field( 'support_item_1' ), get_field( 'support_item_2' ) ), function ( $i ) { return ! empty( $i['text'] ); } );
+?>
 <section class="financial_section">
 	<div class="container">
 
@@ -174,17 +188,17 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image' );
 			<div class="finance_card_body">
 				<h2 class="finance_card_title"><?php echo esc_html( get_field( 'finance_title' ) ); ?></h2>
 
-				<?php if ( have_rows( 'finance_items' ) ) : ?>
+				<?php if ( $finance_items ) : ?>
 					<ul class="finance_list">
-						<?php while ( have_rows( 'finance_items' ) ) : the_row(); ?>
+						<?php foreach ( $finance_items as $item ) : ?>
 							<li class="finance_item">
 								<i class="ri-checkbox-circle-line finance_item_icon" aria-hidden="true"></i>
 								<div>
-									<h4 class="finance_item_title"><?php echo esc_html( get_sub_field( 'title' ) ); ?></h4>
-									<p class="finance_item_text"><?php echo esc_html( get_sub_field( 'text' ) ); ?></p>
+									<h4 class="finance_item_title"><?php echo esc_html( $item['title'] ); ?></h4>
+									<p class="finance_item_text"><?php echo esc_html( $item['text'] ); ?></p>
 								</div>
 							</li>
-						<?php endwhile; ?>
+						<?php endforeach; ?>
 					</ul>
 				<?php endif; ?>
 
@@ -210,19 +224,19 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image' );
 				<?php endif; ?>
 			</div>
 
-			<?php if ( have_rows( 'support_items' ) ) : ?>
+			<?php if ( $support_items ) : ?>
 				<ul class="support_list">
-					<?php while ( have_rows( 'support_items' ) ) : the_row(); ?>
-						<?php list( $si_icon, $si_icon_alt ) = ugc_image_field_sub( 'icon', 'icon' ); ?>
+					<?php foreach ( $support_items as $item ) : ?>
+						<?php list( $si_icon, $si_icon_alt ) = ugc_image_from_group( $item, 'icon', 'icon' ); ?>
 						<li class="support_item">
 							<span class="support_item_icon">
 								<?php if ( $si_icon ) : ?>
 									<img src="<?php echo esc_url( $si_icon ); ?>" alt="<?php echo esc_attr( $si_icon_alt ); ?>">
 								<?php endif; ?>
 							</span>
-							<p><?php echo esc_html( get_sub_field( 'text' ) ); ?></p>
+							<p><?php echo esc_html( $item['text'] ); ?></p>
 						</li>
-					<?php endwhile; ?>
+					<?php endforeach; ?>
 				</ul>
 			<?php endif; ?>
 		</div>

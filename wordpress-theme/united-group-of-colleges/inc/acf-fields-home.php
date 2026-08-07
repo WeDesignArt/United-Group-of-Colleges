@@ -1,6 +1,11 @@
 <?php
 /**
  * ACF field group for the Home page template.
+ *
+ * Built for ACF Free (no Repeater field): every repeating block from the
+ * design is a fixed set of numbered Group fields instead (Group is a
+ * free-tier field type). That means a fixed max count per section rather
+ * than "Add Row" — counts below match what the design actually uses.
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -37,21 +42,25 @@ acf_add_local_field_group( array(
 			'default_value' => 'A Simpler Way into the <span class="text-accent">Education System</span>',
 		),
 		array( 'key' => 'field_home_simpler_text', 'label' => 'Intro Text', 'name' => 'simpler_way_text', 'type' => 'textarea', 'rows' => 3 ),
-		array(
-			'key'          => 'field_home_simpler_rows',
-			'label'        => 'Rows',
-			'name'         => 'simpler_way_rows',
-			'type'         => 'repeater',
-			'instructions' => 'Rows alternate image-left / image-right automatically.',
-			'layout'       => 'block',
-			'button_label' => 'Add Row',
-			'sub_fields'   => array(
-				array( 'key' => 'field_home_simpler_row_image', 'label' => 'Image', 'name' => 'image', 'type' => 'image', 'return_format' => 'array' ),
-				array( 'key' => 'field_home_simpler_row_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'image', 'return_format' => 'array' ),
-				array( 'key' => 'field_home_simpler_row_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
-				array( 'key' => 'field_home_simpler_row_text', 'label' => 'Text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2 ),
-			),
-		),
+
+		array( 'key' => 'field_home_simpler_row1', 'label' => 'Row 1', 'name' => 'simpler_way_row_1', 'type' => 'group', 'sub_fields' => array(
+			array( 'key' => 'field_home_simpler_row1_image', 'label' => 'Image', 'name' => 'image', 'type' => 'image', 'return_format' => 'array' ),
+			array( 'key' => 'field_home_simpler_row1_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'image', 'return_format' => 'array' ),
+			array( 'key' => 'field_home_simpler_row1_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
+			array( 'key' => 'field_home_simpler_row1_text', 'label' => 'Text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2 ),
+		) ),
+		array( 'key' => 'field_home_simpler_row2', 'label' => 'Row 2', 'name' => 'simpler_way_row_2', 'type' => 'group', 'sub_fields' => array(
+			array( 'key' => 'field_home_simpler_row2_image', 'label' => 'Image', 'name' => 'image', 'type' => 'image', 'return_format' => 'array' ),
+			array( 'key' => 'field_home_simpler_row2_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'image', 'return_format' => 'array' ),
+			array( 'key' => 'field_home_simpler_row2_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
+			array( 'key' => 'field_home_simpler_row2_text', 'label' => 'Text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2 ),
+		) ),
+		array( 'key' => 'field_home_simpler_row3', 'label' => 'Row 3', 'name' => 'simpler_way_row_3', 'type' => 'group', 'sub_fields' => array(
+			array( 'key' => 'field_home_simpler_row3_image', 'label' => 'Image', 'name' => 'image', 'type' => 'image', 'return_format' => 'array' ),
+			array( 'key' => 'field_home_simpler_row3_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'image', 'return_format' => 'array' ),
+			array( 'key' => 'field_home_simpler_row3_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
+			array( 'key' => 'field_home_simpler_row3_text', 'label' => 'Text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2 ),
+		) ),
 
 		// ---- Regional Investors ----
 		array( 'key' => 'field_home_tab_regional', 'label' => 'Regional Investors Section', 'type' => 'tab' ),
@@ -60,39 +69,53 @@ acf_add_local_field_group( array(
 			'instructions' => 'Wrap the highlighted words in &lt;span class="text-accent"&gt;...&lt;/span&gt;.',
 			'default_value' => 'Pathways for <span class="text-accent">Regional Investors</span>',
 		),
-		array(
-			'key'          => 'field_home_regional_cards',
-			'label'        => 'Cards',
-			'name'         => 'regional_cards',
-			'type'         => 'repeater',
-			'layout'       => 'block',
-			'button_label' => 'Add Card',
-			'sub_fields'   => array(
-				array( 'key' => 'field_home_regional_card_image', 'label' => 'Photo', 'name' => 'image', 'type' => 'image', 'return_format' => 'array' ),
-				array( 'key' => 'field_home_regional_card_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'image', 'return_format' => 'array' ),
-				array( 'key' => 'field_home_regional_card_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
-				array( 'key' => 'field_home_regional_card_label', 'label' => 'Label', 'name' => 'label', 'type' => 'text' ),
-				array( 'key' => 'field_home_regional_card_text', 'label' => 'Text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2 ),
-			),
-		),
+
+		array( 'key' => 'field_home_regional_card1', 'label' => 'Card 1', 'name' => 'regional_card_1', 'type' => 'group', 'sub_fields' => array(
+			array( 'key' => 'field_home_regional_card1_image', 'label' => 'Photo', 'name' => 'image', 'type' => 'image', 'return_format' => 'array' ),
+			array( 'key' => 'field_home_regional_card1_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'image', 'return_format' => 'array' ),
+			array( 'key' => 'field_home_regional_card1_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
+			array( 'key' => 'field_home_regional_card1_label', 'label' => 'Label', 'name' => 'label', 'type' => 'text' ),
+			array( 'key' => 'field_home_regional_card1_text', 'label' => 'Text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2 ),
+		) ),
+		array( 'key' => 'field_home_regional_card2', 'label' => 'Card 2', 'name' => 'regional_card_2', 'type' => 'group', 'sub_fields' => array(
+			array( 'key' => 'field_home_regional_card2_image', 'label' => 'Photo', 'name' => 'image', 'type' => 'image', 'return_format' => 'array' ),
+			array( 'key' => 'field_home_regional_card2_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'image', 'return_format' => 'array' ),
+			array( 'key' => 'field_home_regional_card2_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
+			array( 'key' => 'field_home_regional_card2_label', 'label' => 'Label', 'name' => 'label', 'type' => 'text' ),
+			array( 'key' => 'field_home_regional_card2_text', 'label' => 'Text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2 ),
+		) ),
+		array( 'key' => 'field_home_regional_card3', 'label' => 'Card 3', 'name' => 'regional_card_3', 'type' => 'group', 'sub_fields' => array(
+			array( 'key' => 'field_home_regional_card3_image', 'label' => 'Photo', 'name' => 'image', 'type' => 'image', 'return_format' => 'array' ),
+			array( 'key' => 'field_home_regional_card3_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'image', 'return_format' => 'array' ),
+			array( 'key' => 'field_home_regional_card3_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
+			array( 'key' => 'field_home_regional_card3_label', 'label' => 'Label', 'name' => 'label', 'type' => 'text' ),
+			array( 'key' => 'field_home_regional_card3_text', 'label' => 'Text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2 ),
+		) ),
 
 		// ---- How the Franchise Works (timeline) ----
 		array( 'key' => 'field_home_tab_timeline', 'label' => 'How It Works (Timeline)', 'type' => 'tab' ),
 		array( 'key' => 'field_home_timeline_heading', 'label' => 'Heading', 'name' => 'timeline_heading', 'type' => 'text', 'default_value' => 'How the UGC Franchise Works' ),
-		array(
-			'key'          => 'field_home_timeline_steps',
-			'label'        => 'Steps',
-			'name'         => 'timeline_steps',
-			'type'         => 'repeater',
-			'instructions' => 'Steps alternate left/right automatically.',
-			'layout'       => 'block',
-			'button_label' => 'Add Step',
-			'sub_fields'   => array(
-				array( 'key' => 'field_home_timeline_step_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'image', 'return_format' => 'array' ),
-				array( 'key' => 'field_home_timeline_step_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
-				array( 'key' => 'field_home_timeline_step_text', 'label' => 'Text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2 ),
-			),
-		),
+
+		array( 'key' => 'field_home_timeline_step1', 'label' => 'Step 1', 'name' => 'timeline_step_1', 'type' => 'group', 'sub_fields' => array(
+			array( 'key' => 'field_home_timeline_step1_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'image', 'return_format' => 'array' ),
+			array( 'key' => 'field_home_timeline_step1_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
+			array( 'key' => 'field_home_timeline_step1_text', 'label' => 'Text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2 ),
+		) ),
+		array( 'key' => 'field_home_timeline_step2', 'label' => 'Step 2', 'name' => 'timeline_step_2', 'type' => 'group', 'sub_fields' => array(
+			array( 'key' => 'field_home_timeline_step2_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'image', 'return_format' => 'array' ),
+			array( 'key' => 'field_home_timeline_step2_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
+			array( 'key' => 'field_home_timeline_step2_text', 'label' => 'Text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2 ),
+		) ),
+		array( 'key' => 'field_home_timeline_step3', 'label' => 'Step 3', 'name' => 'timeline_step_3', 'type' => 'group', 'sub_fields' => array(
+			array( 'key' => 'field_home_timeline_step3_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'image', 'return_format' => 'array' ),
+			array( 'key' => 'field_home_timeline_step3_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
+			array( 'key' => 'field_home_timeline_step3_text', 'label' => 'Text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2 ),
+		) ),
+		array( 'key' => 'field_home_timeline_step4', 'label' => 'Step 4', 'name' => 'timeline_step_4', 'type' => 'group', 'sub_fields' => array(
+			array( 'key' => 'field_home_timeline_step4_icon', 'label' => 'Icon', 'name' => 'icon', 'type' => 'image', 'return_format' => 'array' ),
+			array( 'key' => 'field_home_timeline_step4_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
+			array( 'key' => 'field_home_timeline_step4_text', 'label' => 'Text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2 ),
+		) ),
 
 		// ---- Campus Models ----
 		array( 'key' => 'field_home_tab_models', 'label' => 'Campus Models Section', 'type' => 'tab' ),
@@ -102,21 +125,29 @@ acf_add_local_field_group( array(
 			'default_value' => 'Campus Models Tailored to <span class="text-accent">Your Market</span>',
 		),
 		array( 'key' => 'field_home_models_intro', 'label' => 'Intro Text', 'name' => 'models_intro', 'type' => 'text' ),
-		array(
-			'key'          => 'field_home_models_cards',
-			'label'        => 'Model Cards',
-			'name'         => 'models_cards',
-			'type'         => 'repeater',
-			'layout'       => 'block',
-			'button_label' => 'Add Model',
-			'sub_fields'   => array(
-				array( 'key' => 'field_home_models_card_image', 'label' => 'Image', 'name' => 'image', 'type' => 'image', 'return_format' => 'array' ),
-				array( 'key' => 'field_home_models_card_label', 'label' => 'Label (e.g. MODEL A)', 'name' => 'label', 'type' => 'text' ),
-				array( 'key' => 'field_home_models_card_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
-				array( 'key' => 'field_home_models_card_text', 'label' => 'Text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2 ),
-				array( 'key' => 'field_home_models_card_highlight', 'label' => 'Highlight this card', 'name' => 'is_highlighted', 'type' => 'true_false', 'ui' => 1 ),
-			),
-		),
+
+		array( 'key' => 'field_home_models_card1', 'label' => 'Model Card 1', 'name' => 'models_card_1', 'type' => 'group', 'sub_fields' => array(
+			array( 'key' => 'field_home_models_card1_image', 'label' => 'Image', 'name' => 'image', 'type' => 'image', 'return_format' => 'array' ),
+			array( 'key' => 'field_home_models_card1_label', 'label' => 'Label (e.g. MODEL A)', 'name' => 'label', 'type' => 'text' ),
+			array( 'key' => 'field_home_models_card1_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
+			array( 'key' => 'field_home_models_card1_text', 'label' => 'Text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2 ),
+			array( 'key' => 'field_home_models_card1_highlight', 'label' => 'Highlight this card', 'name' => 'is_highlighted', 'type' => 'true_false', 'ui' => 1 ),
+		) ),
+		array( 'key' => 'field_home_models_card2', 'label' => 'Model Card 2', 'name' => 'models_card_2', 'type' => 'group', 'sub_fields' => array(
+			array( 'key' => 'field_home_models_card2_image', 'label' => 'Image', 'name' => 'image', 'type' => 'image', 'return_format' => 'array' ),
+			array( 'key' => 'field_home_models_card2_label', 'label' => 'Label (e.g. MODEL B)', 'name' => 'label', 'type' => 'text' ),
+			array( 'key' => 'field_home_models_card2_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
+			array( 'key' => 'field_home_models_card2_text', 'label' => 'Text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2 ),
+			array( 'key' => 'field_home_models_card2_highlight', 'label' => 'Highlight this card', 'name' => 'is_highlighted', 'type' => 'true_false', 'ui' => 1, 'default_value' => 1 ),
+		) ),
+		array( 'key' => 'field_home_models_card3', 'label' => 'Model Card 3', 'name' => 'models_card_3', 'type' => 'group', 'sub_fields' => array(
+			array( 'key' => 'field_home_models_card3_image', 'label' => 'Image', 'name' => 'image', 'type' => 'image', 'return_format' => 'array' ),
+			array( 'key' => 'field_home_models_card3_label', 'label' => 'Label (e.g. MODEL C)', 'name' => 'label', 'type' => 'text' ),
+			array( 'key' => 'field_home_models_card3_title', 'label' => 'Title', 'name' => 'title', 'type' => 'text' ),
+			array( 'key' => 'field_home_models_card3_text', 'label' => 'Text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2 ),
+			array( 'key' => 'field_home_models_card3_highlight', 'label' => 'Highlight this card', 'name' => 'is_highlighted', 'type' => 'true_false', 'ui' => 1 ),
+		) ),
+
 		array( 'key' => 'field_home_models_footnote', 'label' => 'Footnote', 'name' => 'models_footnote', 'type' => 'textarea', 'rows' => 2, 'default_value' => 'All program offerings across all models are proposed and subject to final regulatory and government approvals.' ),
 
 		// ---- Why South Punjab ----
@@ -143,17 +174,10 @@ acf_add_local_field_group( array(
 			'default_value' => 'Who This Opportunity Is <span class="text-accent">For</span>',
 		),
 		array( 'key' => 'field_home_opportunity_intro', 'label' => 'Intro Text', 'name' => 'opportunity_intro', 'type' => 'text', 'default_value' => 'UGC welcomes visionary partners ready to make an impact.' ),
-		array(
-			'key'          => 'field_home_opportunity_list',
-			'label'        => 'List Items',
-			'name'         => 'opportunity_list',
-			'type'         => 'repeater',
-			'layout'       => 'table',
-			'button_label' => 'Add Item',
-			'sub_fields'   => array(
-				array( 'key' => 'field_home_opportunity_item_text', 'label' => 'Text', 'name' => 'text', 'type' => 'text' ),
-			),
-		),
+		array( 'key' => 'field_home_opportunity_item1', 'label' => 'Item 1', 'name' => 'opportunity_item_1_text', 'type' => 'text' ),
+		array( 'key' => 'field_home_opportunity_item2', 'label' => 'Item 2', 'name' => 'opportunity_item_2_text', 'type' => 'text' ),
+		array( 'key' => 'field_home_opportunity_item3', 'label' => 'Item 3', 'name' => 'opportunity_item_3_text', 'type' => 'text' ),
+		array( 'key' => 'field_home_opportunity_item4', 'label' => 'Item 4', 'name' => 'opportunity_item_4_text', 'type' => 'text' ),
 
 		// ---- CTA ----
 		array( 'key' => 'field_home_tab_cta', 'label' => 'CTA Section', 'type' => 'tab' ),

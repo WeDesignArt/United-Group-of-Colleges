@@ -274,18 +274,23 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image' );
 			</figure>
 		<?php endif; ?>
 
+		<?php
+		$next_steps = array_filter( array(
+			get_field( 'next_step_1' ), get_field( 'next_step_2' ), get_field( 'next_step_3' ), get_field( 'next_step_4' ),
+		), function ( $s ) { return ! empty( $s['label'] ); } );
+		?>
 		<div class="contact_grid">
 
-			<?php if ( have_rows( 'next_steps' ) ) : ?>
+			<?php if ( $next_steps ) : ?>
 				<div class="contact_col">
 					<h2 class="contact_col_title"><?php echo esc_html( get_field( 'next_steps_title' ) ); ?></h2>
 
 					<ul class="section_list contact_list">
-						<?php while ( have_rows( 'next_steps' ) ) : the_row(); ?>
+						<?php foreach ( $next_steps as $step ) : ?>
 							<li>
-								<strong><?php echo esc_html( get_sub_field( 'label' ) ); ?></strong> <?php echo esc_html( get_sub_field( 'text' ) ); ?>
+								<strong><?php echo esc_html( $step['label'] ); ?></strong> <?php echo esc_html( $step['text'] ); ?>
 							</li>
-						<?php endwhile; ?>
+						<?php endforeach; ?>
 					</ul>
 				</div>
 			<?php endif; ?>

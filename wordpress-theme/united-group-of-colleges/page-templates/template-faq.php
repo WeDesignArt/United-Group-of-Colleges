@@ -6,6 +6,14 @@
 get_header();
 
 list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image', 'UGC campus' );
+
+$faq_items = array();
+for ( $n = 1; $n <= 10; $n++ ) {
+	$item = get_field( 'faq_item_' . $n );
+	if ( ! empty( $item['question'] ) ) {
+		$faq_items[] = $item;
+	}
+}
 ?>
 
 <!-- ===================== PAGE HERO SECTION ===================== -->
@@ -23,21 +31,21 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image', 'UGC campus' );
 </section>
 
 <!-- FAQ's -->
-<?php if ( have_rows( 'faq_items' ) ) : ?>
+<?php if ( $faq_items ) : ?>
 <section class="faq-section">
 	<div class="container">
 		<div class="faq-list">
-			<?php while ( have_rows( 'faq_items' ) ) : the_row(); ?>
-				<details class="faq-item"<?php echo get_sub_field( 'open_by_default' ) ? ' open' : ''; ?>>
+			<?php foreach ( $faq_items as $item ) : ?>
+				<details class="faq-item"<?php echo ! empty( $item['open_by_default'] ) ? ' open' : ''; ?>>
 					<summary class="faq-question">
-						<?php echo esc_html( get_sub_field( 'question' ) ); ?>
+						<?php echo esc_html( $item['question'] ); ?>
 						<span class="faq-icon"><i class="ri-add-line"></i><i class="ri-subtract-line"></i></span>
 					</summary>
 					<div class="faq-answer">
-						<p><?php echo esc_html( get_sub_field( 'answer' ) ); ?></p>
+						<p><?php echo esc_html( $item['answer'] ); ?></p>
 					</div>
 				</details>
-			<?php endwhile; ?>
+			<?php endforeach; ?>
 		</div>
 	</div>
 </section>

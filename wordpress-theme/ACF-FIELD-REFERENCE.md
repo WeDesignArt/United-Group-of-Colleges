@@ -1,12 +1,12 @@
 # ACF Field Reference
 
-Every field group below is **already registered in code** (`inc/acf-fields-*.php`) — you don't need to manually create any of this in ACF for the site to work. This document exists purely as a reference: for each field, the **Label** and the **Field Type** you'd pick from ACF's "Field Type" dropdown if you were ever building it by hand (e.g. to understand the setup, rebuild it on another site, or move away from code-based fields later).
+Every field group below is **already registered in code** (`inc/acf-fields-*.php`) — you don't need to manually create any of this in ACF for the site to work. This document exists purely as a reference: for each field, the **Label** and the **Field Type**.
 
-> **If you do create any of these manually in wp-admin:** the field *name* (the internal slug) doesn't matter here — ACF auto-generates it from the Label as you type, and that's fine to leave as-is. But creating a field with the **same Label** as a code-registered one adds a second, duplicate field on the same screen rather than replacing it — so only do this if you also remove the matching entry from the relevant `inc/acf-fields-*.php` file, otherwise you'll see it twice.
+> **Built for ACF Free — no PRO required.** The original design has several repeating blocks (cards, list items, FAQs, timeline steps). Since Repeater is a PRO-only field type, every one of those is implemented instead as a **fixed number of Group fields** — Group is free-tier and lets each "row" show up as its own boxed section on the edit screen, e.g. "Card 1", "Card 2", "Card 3". The trade-off: the count per section is fixed (matching what the design actually uses) rather than "Add Row" — you can leave any slot's Title/Label blank to skip rendering it, but you can't add an eleventh FAQ without editing the theme.
 >
-> **For every Image field**: set **Return Format → Image Array**. The template code reads `$field['url']` and `$field['alt']` from it, so any other return format (URL / ID) will break the image output.
-
-Repeater fields are marked **(Repeater)** — their indented children are the sub-fields/columns inside each row.
+> **If you do create any of these manually in wp-admin:** the field *name* (the internal slug) doesn't matter — ACF auto-generates it from the Label as you type. But creating a field with the **same Label** as a code-registered one adds a second, duplicate field rather than replacing it — only do this if you also remove the matching entry from the relevant `inc/acf-fields-*.php` file.
+>
+> **For every Image field**: set **Return Format → Image Array**. The template code reads `['url']`/`['alt']` off it, so any other return format (URL / ID) will break the image output.
 
 ---
 
@@ -43,7 +43,7 @@ Repeater fields are marked **(Repeater)** — their indented children are the su
 **A Simpler Way Section**
 - Heading — Text
 - Intro Text — Text Area
-- Rows — **(Repeater, layout: Block)**
+- **Row 1 / Row 2 / Row 3** — Group, each with:
   - Image — Image
   - Icon — Image
   - Title — Text
@@ -51,7 +51,7 @@ Repeater fields are marked **(Repeater)** — their indented children are the su
 
 **Regional Investors Section**
 - Heading — Text
-- Cards — **(Repeater, layout: Block)**
+- **Card 1 / Card 2 / Card 3** — Group, each with:
   - Photo — Image
   - Icon — Image
   - Title — Text
@@ -60,7 +60,7 @@ Repeater fields are marked **(Repeater)** — their indented children are the su
 
 **How It Works (Timeline)**
 - Heading — Text
-- Steps — **(Repeater, layout: Block)**
+- **Step 1 / Step 2 / Step 3 / Step 4** — Group, each with:
   - Icon — Image
   - Title — Text
   - Text — Text Area
@@ -68,7 +68,7 @@ Repeater fields are marked **(Repeater)** — their indented children are the su
 **Campus Models Section**
 - Heading — Text
 - Intro Text — Text
-- Model Cards — **(Repeater, layout: Block)**
+- **Model Card 1 / Model Card 2 / Model Card 3** — Group, each with:
   - Image — Image
   - Label (e.g. MODEL A) — Text
   - Title — Text
@@ -90,8 +90,7 @@ Repeater fields are marked **(Repeater)** — their indented children are the su
 - Image — Image
 - Heading — Text
 - Intro Text — Text
-- List Items — **(Repeater, layout: Table)**
-  - Text — Text
+- Item 1 / Item 2 / Item 3 / Item 4 — Text *(each is one plain line — leave any blank to show fewer than 4)*
 
 **CTA Section**
 - Heading — Text
@@ -112,7 +111,7 @@ Repeater fields are marked **(Repeater)** — their indented children are the su
 - Heading — Text
 - Text — Text Area
 - List Title — Text
-- List Items — **(Repeater, layout: Block)**
+- **List Item 1 / List Item 2 / List Item 3** — Group, each with:
   - Label — Text
   - Text — Text Area
 
@@ -123,7 +122,7 @@ Repeater fields are marked **(Repeater)** — their indented children are the su
 
 **Core Pillars Section**
 - Heading — Text
-- Pillars — **(Repeater, layout: Block)**
+- **Pillar 1 / Pillar 2 / Pillar 3** — Group, each with:
   - Icon — Image
   - Title — Text
   - Text — Text Area
@@ -132,7 +131,7 @@ Repeater fields are marked **(Repeater)** — their indented children are the su
 - Image — Image
 - Heading — Text
 - Intro Text — Text Area
-- List Items — **(Repeater, layout: Block)**
+- **List Item 1 – List Item 5** — Group, each with:
   - Label — Text
   - Text — Text Area
 
@@ -153,36 +152,34 @@ Repeater fields are marked **(Repeater)** — their indented children are the su
 - Heading — Text
 - Text — Text Area
 - List Subtitle — Text
-- List Items — **(Repeater, layout: Block)**
+- **List Item 1 – List Item 4** — Group, each with:
   - Label — Text
   - Text — Text Area
 
 **Division of Responsibilities**
 - Heading — Text
 - Column 1 Title — Text
-- Column 1 Items — **(Repeater, layout: Table)**
-  - Text — Text
+- Column 1 — Item 1 through Item 5 — Text *(each one plain line)*
 - Column 2 Title — Text
-- Column 2 Items — **(Repeater, layout: Table)**
-  - Text — Text
+- Column 2 — Item 1 through Item 7 — Text *(each one plain line)*
 
 **Campus Models Overview**
 - Heading — Text
-- Model Cards — **(Repeater, layout: Block)**
+- **Model Card 1 / Model Card 2 / Model Card 3** — Group, each with:
   - Image — Image
   - Label — Text
   - Title — Text
   - Text — Text Area
 
 **Overview Icons**
-- Items — **(Repeater, layout: Table)**
+- **Item 1 – Item 4** — Group, each with:
   - Icon — Image
   - Text — Text
 
 **Financial Overview**
 - Image — Image
 - Title — Text
-- Line Items — **(Repeater, layout: Block)**
+- **Line Item 1 / Line Item 2 / Line Item 3** — Group, each with:
   - Title — Text
   - Text — Text Area
 - Note Title — Text
@@ -192,7 +189,7 @@ Repeater fields are marked **(Repeater)** — their indented children are the su
 - Icon — Image
 - Title — Text
 - Intro Text — Text Area
-- Items — **(Repeater, layout: Block)**
+- **Item 1 / Item 2** — Group, each with:
   - Icon — Image
   - Text — Text Area
 
@@ -215,15 +212,15 @@ Repeater fields are marked **(Repeater)** — their indented children are the su
 
 **Detailed Model Breakdown**
 - Heading — Text
-- Models — **(Repeater, layout: Block)**
+- **Model 1 / Model 2 / Model 3** — Group, each with:
   - Image — Image
   - Label (e.g. Model A) — Text
   - Title — Text
-  - Points — **(Repeater, layout: Block — nested inside each Model row)**
+  - **Point 1 – Point 4** — Group *(nested inside the Model)*, each with:
     - Label (e.g. Ideal For) — Text
     - Text — Text Area
-    - Sub-list — **(Repeater, layout: Table — nested inside each Point row; leave empty except for Model C's "Proposed Academic Programs" point)**
-      - Text — Text
+    - **Sub-list** — Group *(nested inside the Point; leave blank except for Model 3's Point 2, "Proposed Academic Programs")*, containing:
+      - Sub-item 1 through Sub-item 6 — Text
 
 **Compliance Statement**
 - Heading — Text
@@ -238,10 +235,12 @@ Repeater fields are marked **(Repeater)** — their indented children are the su
 - Hero Title — Text
 
 **Questions**
-- FAQ Items — **(Repeater, layout: Block)**
+- **Question 1 – Question 10** — Group, each with:
   - Question — Text
   - Answer — Text Area
-  - Open by default — True / False *(tick only for the one question that should be pre-expanded)*
+  - Open by default — True / False *(tick only for the one question that should be pre-expanded — usually Question 1)*
+
+*(Leave any slot's Question field blank to show fewer than 10 FAQs.)*
 
 ---
 
@@ -263,7 +262,7 @@ Repeater fields are marked **(Repeater)** — their indented children are the su
 
 **What Happens Next**
 - Column Title — Text
-- Steps — **(Repeater, layout: Block)**
+- **Step 1 – Step 4** — Group, each with:
   - Label — Text
   - Text — Text Area
 

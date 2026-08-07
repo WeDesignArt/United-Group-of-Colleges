@@ -57,14 +57,18 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image' );
 	</div>
 </section>
 
-<?php if ( have_rows( 'simpler_way_rows' ) ) : ?>
+<?php
+$simpler_rows = array( get_field( 'simpler_way_row_1' ), get_field( 'simpler_way_row_2' ), get_field( 'simpler_way_row_3' ) );
+$simpler_rows = array_filter( $simpler_rows, function ( $row ) { return ! empty( $row['title'] ); } );
+?>
+<?php if ( $simpler_rows ) : ?>
 <section class="simpler-way-rows-section overflow-hidden section_gray">
 	<div class="container">
 		<div class="simpler-way-rows">
-			<?php $i = 0; while ( have_rows( 'simpler_way_rows' ) ) : the_row(); $i++; ?>
+			<?php $i = 0; foreach ( $simpler_rows as $row ) : $i++; ?>
 				<?php
-				list( $row_img, $row_img_alt ) = ugc_image_field_sub( 'image', get_sub_field( 'title' ) );
-				list( $row_icon, $row_icon_alt ) = ugc_image_field_sub( 'icon', get_sub_field( 'title' ) . ' icon' );
+				list( $row_img, $row_img_alt ) = ugc_image_from_group( $row, 'image', $row['title'] );
+				list( $row_icon, $row_icon_alt ) = ugc_image_from_group( $row, 'icon', $row['title'] . ' icon' );
 				?>
 				<div class="simpler-way-row<?php echo ( 0 === $i % 2 ) ? ' simpler-way-row--reverse' : ''; ?>">
 					<div class="simpler-way-image">
@@ -76,18 +80,22 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image' );
 						<?php if ( $row_icon ) : ?>
 							<span class="simpler-way-icon"><img src="<?php echo esc_url( $row_icon ); ?>" alt="<?php echo esc_attr( $row_icon_alt ); ?>"></span>
 						<?php endif; ?>
-						<h3><?php echo esc_html( get_sub_field( 'title' ) ); ?></h3>
-						<p><?php echo esc_html( get_sub_field( 'text' ) ); ?></p>
+						<h3><?php echo esc_html( $row['title'] ); ?></h3>
+						<p><?php echo esc_html( $row['text'] ); ?></p>
 					</div>
 				</div>
-			<?php endwhile; ?>
+			<?php endforeach; ?>
 		</div>
 	</div>
 </section>
 <?php endif; ?>
 
 <!-- ===================== REGIONAL INVESTORS SECTION ===================== -->
-<?php if ( have_rows( 'regional_cards' ) ) : ?>
+<?php
+$regional_cards = array( get_field( 'regional_card_1' ), get_field( 'regional_card_2' ), get_field( 'regional_card_3' ) );
+$regional_cards = array_filter( $regional_cards, function ( $c ) { return ! empty( $c['title'] ); } );
+?>
+<?php if ( $regional_cards ) : ?>
 <section class="models-section">
 	<div class="container">
 		<div class="section-heading">
@@ -95,10 +103,10 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image' );
 		</div>
 
 		<div class="models-grid">
-			<?php while ( have_rows( 'regional_cards' ) ) : the_row(); ?>
+			<?php foreach ( $regional_cards as $card ) : ?>
 				<?php
-				list( $card_img, $card_img_alt ) = ugc_image_field_sub( 'image', get_sub_field( 'title' ) );
-				list( $card_icon, $card_icon_alt ) = ugc_image_field_sub( 'icon', get_sub_field( 'title' ) . ' icon' );
+				list( $card_img, $card_img_alt ) = ugc_image_from_group( $card, 'image', $card['title'] );
+				list( $card_icon, $card_icon_alt ) = ugc_image_from_group( $card, 'icon', $card['title'] . ' icon' );
 				?>
 				<div class="model-card">
 					<div class="regional-model-card">
@@ -110,34 +118,38 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image' );
 						<?php endif; ?>
 					</div>
 					<div class="model-card__body">
-						<h3><?php echo esc_html( get_sub_field( 'title' ) ); ?></h3>
-						<span class="regional-model-label"><?php echo esc_html( get_sub_field( 'label' ) ); ?></span>
-						<p><?php echo esc_html( get_sub_field( 'text' ) ); ?></p>
+						<h3><?php echo esc_html( $card['title'] ); ?></h3>
+						<span class="regional-model-label"><?php echo esc_html( $card['label'] ); ?></span>
+						<p><?php echo esc_html( $card['text'] ); ?></p>
 					</div>
 				</div>
-			<?php endwhile; ?>
+			<?php endforeach; ?>
 		</div>
 	</div>
 </section>
 <?php endif; ?>
 
 <!-- ===================== FRANCHISE WORKS (TIMELINE) SECTION ===================== -->
-<?php if ( have_rows( 'timeline_steps' ) ) : ?>
+<?php
+$timeline_steps = array( get_field( 'timeline_step_1' ), get_field( 'timeline_step_2' ), get_field( 'timeline_step_3' ), get_field( 'timeline_step_4' ) );
+$timeline_steps = array_filter( $timeline_steps, function ( $s ) { return ! empty( $s['title'] ); } );
+?>
+<?php if ( $timeline_steps ) : ?>
 <section class="franchise-section">
 	<div class="container">
 		<h2 class="franchise-title"><?php echo esc_html( get_field( 'timeline_heading' ) ); ?></h2>
 
 		<div class="timeline">
-			<?php $i = 0; while ( have_rows( 'timeline_steps' ) ) : the_row(); $i++; ?>
+			<?php $i = 0; foreach ( $timeline_steps as $step ) : $i++; ?>
 				<?php
 				$on_left = ( 1 === $i % 2 );
-				list( $step_icon, $step_icon_alt ) = ugc_image_field_sub( 'icon', get_sub_field( 'title' ) . ' icon' );
+				list( $step_icon, $step_icon_alt ) = ugc_image_from_group( $step, 'icon', $step['title'] . ' icon' );
 				?>
 				<div class="timeline-row">
 					<div class="timeline-text timeline-text--left">
 						<?php if ( $on_left ) : ?>
-							<h3><?php echo esc_html( get_sub_field( 'title' ) ); ?></h3>
-							<p><?php echo esc_html( get_sub_field( 'text' ) ); ?></p>
+							<h3><?php echo esc_html( $step['title'] ); ?></h3>
+							<p><?php echo esc_html( $step['text'] ); ?></p>
 						<?php endif; ?>
 					</div>
 					<div class="timeline-icon">
@@ -147,19 +159,23 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image' );
 					</div>
 					<div class="timeline-text timeline-text--right">
 						<?php if ( ! $on_left ) : ?>
-							<h3><?php echo esc_html( get_sub_field( 'title' ) ); ?></h3>
-							<p><?php echo esc_html( get_sub_field( 'text' ) ); ?></p>
+							<h3><?php echo esc_html( $step['title'] ); ?></h3>
+							<p><?php echo esc_html( $step['text'] ); ?></p>
 						<?php endif; ?>
 					</div>
 				</div>
-			<?php endwhile; ?>
+			<?php endforeach; ?>
 		</div>
 	</div>
 </section>
 <?php endif; ?>
 
 <!-- ===================== CAMPUS MODELS SECTION ===================== -->
-<?php if ( have_rows( 'models_cards' ) ) : ?>
+<?php
+$models_cards = array( get_field( 'models_card_1' ), get_field( 'models_card_2' ), get_field( 'models_card_3' ) );
+$models_cards = array_filter( $models_cards, function ( $c ) { return ! empty( $c['title'] ); } );
+?>
+<?php if ( $models_cards ) : ?>
 <section class="models-section section_gray">
 	<div class="container">
 		<div class="section-heading">
@@ -170,21 +186,21 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image' );
 		</div>
 
 		<div class="models-grid">
-			<?php while ( have_rows( 'models_cards' ) ) : the_row(); ?>
-				<?php list( $mc_img, $mc_img_alt ) = ugc_image_field_sub( 'image', get_sub_field( 'title' ) ); ?>
-				<div class="model-card<?php echo get_sub_field( 'is_highlighted' ) ? ' model-card--active' : ''; ?>">
+			<?php foreach ( $models_cards as $card ) : ?>
+				<?php list( $mc_img, $mc_img_alt ) = ugc_image_from_group( $card, 'image', $card['title'] ); ?>
+				<div class="model-card<?php echo ! empty( $card['is_highlighted'] ) ? ' model-card--active' : ''; ?>">
 					<div class="model-card__image">
 						<?php if ( $mc_img ) : ?>
 							<img src="<?php echo esc_url( $mc_img ); ?>" alt="<?php echo esc_attr( $mc_img_alt ); ?>">
 						<?php endif; ?>
 					</div>
 					<div class="model-card__body">
-						<span class="model-card__label"><?php echo esc_html( get_sub_field( 'label' ) ); ?></span>
-						<h3><?php echo esc_html( get_sub_field( 'title' ) ); ?></h3>
-						<p><?php echo esc_html( get_sub_field( 'text' ) ); ?></p>
+						<span class="model-card__label"><?php echo esc_html( $card['label'] ); ?></span>
+						<h3><?php echo esc_html( $card['title'] ); ?></h3>
+						<p><?php echo esc_html( $card['text'] ); ?></p>
 					</div>
 				</div>
-			<?php endwhile; ?>
+			<?php endforeach; ?>
 		</div>
 
 		<?php if ( get_field( 'models_footnote' ) ) : ?>
@@ -238,6 +254,14 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image' );
 </section>
 
 <!-- ===================== WHO IS THIS FOR SECTION ===================== -->
+<?php
+$opportunity_items = array_filter( array(
+	get_field( 'opportunity_item_1_text' ),
+	get_field( 'opportunity_item_2_text' ),
+	get_field( 'opportunity_item_3_text' ),
+	get_field( 'opportunity_item_4_text' ),
+) );
+?>
 <section class="opportunity-section section_gray">
 	<div class="container">
 		<div class="opportunity-card">
@@ -255,14 +279,14 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image' );
 					<p class="opportunity-intro"><?php echo esc_html( get_field( 'opportunity_intro' ) ); ?></p>
 				<?php endif; ?>
 
-				<?php if ( have_rows( 'opportunity_list' ) ) : ?>
+				<?php if ( $opportunity_items ) : ?>
 					<ul class="opportunity-list">
-						<?php while ( have_rows( 'opportunity_list' ) ) : the_row(); ?>
+						<?php foreach ( $opportunity_items as $text ) : ?>
 							<li>
 								<span class="check-icon"><i class="bi bi-check"></i></span>
-								<span><?php echo esc_html( get_sub_field( 'text' ) ); ?></span>
+								<span><?php echo esc_html( $text ); ?></span>
 							</li>
-						<?php endwhile; ?>
+						<?php endforeach; ?>
 					</ul>
 				<?php endif; ?>
 			</div>

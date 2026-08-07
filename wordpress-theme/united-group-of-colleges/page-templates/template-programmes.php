@@ -44,7 +44,14 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image', 'UGC campus archit
 </section>
 
 <!-- ===================== DETAILED MODEL BREAKDOWN SECTION ===================== -->
-<?php if ( have_rows( 'breakdown_models' ) ) : ?>
+<?php
+$breakdown_models = array_filter( array(
+	get_field( 'breakdown_model_1' ),
+	get_field( 'breakdown_model_2' ),
+	get_field( 'breakdown_model_3' ),
+), function ( $m ) { return ! empty( $m['title'] ); } );
+?>
+<?php if ( $breakdown_models ) : ?>
 <section class="breakdown-section section_gray">
 	<div class="container">
 		<div class="section-heading">
@@ -52,8 +59,11 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image', 'UGC campus archit
 		</div>
 
 		<div class="breakdown-rows">
-			<?php $i = 0; while ( have_rows( 'breakdown_models' ) ) : the_row(); $i++; ?>
-				<?php list( $bm_img, $bm_img_alt ) = ugc_image_field_sub( 'image', get_sub_field( 'title' ) ); ?>
+			<?php $i = 0; foreach ( $breakdown_models as $model ) : $i++; ?>
+				<?php
+				list( $bm_img, $bm_img_alt ) = ugc_image_from_group( $model, 'image', $model['title'] );
+				$points = array_filter( array( $model['point_1'], $model['point_2'], $model['point_3'], $model['point_4'] ), function ( $p ) { return ! empty( $p['label'] ); } );
+				?>
 				<div class="breakdown-row<?php echo ( 0 === $i % 2 ) ? ' breakdown-row--reverse' : ''; ?>">
 					<div class="breakdown-image">
 						<?php if ( $bm_img ) : ?>
@@ -61,29 +71,39 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image', 'UGC campus archit
 						<?php endif; ?>
 					</div>
 					<div class="breakdown-content">
-						<span class="breakdown-label"><?php echo esc_html( get_sub_field( 'label' ) ); ?></span>
-						<h3><?php echo esc_html( get_sub_field( 'title' ) ); ?></h3>
+						<span class="breakdown-label"><?php echo esc_html( $model['label'] ); ?></span>
+						<h3><?php echo esc_html( $model['title'] ); ?></h3>
 
-						<?php if ( have_rows( 'points' ) ) : ?>
+						<?php if ( $points ) : ?>
 							<ul class="info-list">
-								<?php while ( have_rows( 'points' ) ) : the_row(); ?>
+								<?php foreach ( $points as $point ) : ?>
+									<?php
+									$sub_items = array();
+									if ( ! empty( $point['sub_list'] ) && is_array( $point['sub_list'] ) ) {
+										for ( $s = 1; $s <= 6; $s++ ) {
+											if ( ! empty( $point['sub_list'][ 'sub_' . $s ] ) ) {
+												$sub_items[] = $point['sub_list'][ 'sub_' . $s ];
+											}
+										}
+									}
+									?>
 									<li>
-										<strong><?php echo esc_html( get_sub_field( 'label' ) ); ?></strong> <?php echo esc_html( get_sub_field( 'text' ) ); ?>
+										<strong><?php echo esc_html( $point['label'] ); ?></strong> <?php echo esc_html( $point['text'] ); ?>
 
-										<?php if ( have_rows( 'sub_list' ) ) : ?>
+										<?php if ( $sub_items ) : ?>
 											<ul class="info-sublist">
-												<?php while ( have_rows( 'sub_list' ) ) : the_row(); ?>
-													<li><?php echo esc_html( get_sub_field( 'text' ) ); ?></li>
-												<?php endwhile; ?>
+												<?php foreach ( $sub_items as $sub_text ) : ?>
+													<li><?php echo esc_html( $sub_text ); ?></li>
+												<?php endforeach; ?>
 											</ul>
 										<?php endif; ?>
 									</li>
-								<?php endwhile; ?>
+								<?php endforeach; ?>
 							</ul>
 						<?php endif; ?>
 					</div>
 				</div>
-			<?php endwhile; ?>
+			<?php endforeach; ?>
 		</div>
 	</div>
 </section>

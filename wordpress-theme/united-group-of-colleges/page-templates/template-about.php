@@ -23,6 +23,9 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image', 'Students walking 
 </section>
 
 <!-- ===================== TRUST SECTION ===================== -->
+<?php
+$trust_items = array_filter( array( get_field( 'trust_item_1' ), get_field( 'trust_item_2' ), get_field( 'trust_item_3' ) ), function ( $i ) { return ! empty( $i['label'] ); } );
+?>
 <section class="why-section trust-section">
 	<div class="container why-grid">
 
@@ -43,11 +46,11 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image', 'Students walking 
 				<h3 class="info-list-title"><?php echo esc_html( get_field( 'trust_list_title' ) ); ?></h3>
 			<?php endif; ?>
 
-			<?php if ( have_rows( 'trust_list' ) ) : ?>
+			<?php if ( $trust_items ) : ?>
 				<ul class="info-list">
-					<?php while ( have_rows( 'trust_list' ) ) : the_row(); ?>
-						<li><strong><?php echo esc_html( get_sub_field( 'label' ) ); ?></strong> <?php echo esc_html( get_sub_field( 'text' ) ); ?></li>
-					<?php endwhile; ?>
+					<?php foreach ( $trust_items as $item ) : ?>
+						<li><strong><?php echo esc_html( $item['label'] ); ?></strong> <?php echo esc_html( $item['text'] ); ?></li>
+					<?php endforeach; ?>
 				</ul>
 			<?php endif; ?>
 		</div>
@@ -75,7 +78,10 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image', 'Students walking 
 </section>
 
 <!-- ===================== CORE PILLARS SECTION ===================== -->
-<?php if ( have_rows( 'pillars' ) ) : ?>
+<?php
+$pillars = array_filter( array( get_field( 'pillar_1' ), get_field( 'pillar_2' ), get_field( 'pillar_3' ) ), function ( $p ) { return ! empty( $p['title'] ); } );
+?>
+<?php if ( $pillars ) : ?>
 <section class="pillars-section">
 	<div class="container">
 		<div class="section-heading">
@@ -83,25 +89,34 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image', 'Students walking 
 		</div>
 
 		<div class="pillars-grid">
-			<?php while ( have_rows( 'pillars' ) ) : the_row(); ?>
-				<?php list( $p_icon, $p_icon_alt ) = ugc_image_field_sub( 'icon', get_sub_field( 'title' ) . ' icon' ); ?>
+			<?php foreach ( $pillars as $pillar ) : ?>
+				<?php list( $p_icon, $p_icon_alt ) = ugc_image_from_group( $pillar, 'icon', $pillar['title'] . ' icon' ); ?>
 				<div class="pillar-card">
 					<?php if ( $p_icon ) : ?>
 						<span class="pillar-icon"><img src="<?php echo esc_url( $p_icon ); ?>" alt="<?php echo esc_attr( $p_icon_alt ); ?>"></span>
 					<?php endif; ?>
 					<span class="pillar-divider"></span>
 					<div class="pillar-content">
-						<h3><?php echo esc_html( get_sub_field( 'title' ) ); ?></h3>
-						<p><?php echo esc_html( get_sub_field( 'text' ) ); ?></p>
+						<h3><?php echo esc_html( $pillar['title'] ); ?></h3>
+						<p><?php echo esc_html( $pillar['text'] ); ?></p>
 					</div>
 				</div>
-			<?php endwhile; ?>
+			<?php endforeach; ?>
 		</div>
 	</div>
 </section>
 <?php endif; ?>
 
 <!-- ===================== QUALITY ASSURANCE SECTION ===================== -->
+<?php
+$quality_items = array_filter( array(
+	get_field( 'quality_item_1' ),
+	get_field( 'quality_item_2' ),
+	get_field( 'quality_item_3' ),
+	get_field( 'quality_item_4' ),
+	get_field( 'quality_item_5' ),
+), function ( $i ) { return ! empty( $i['label'] ); } );
+?>
 <section class="why-section quality-section">
 	<div class="container why-grid">
 
@@ -118,11 +133,11 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image', 'Students walking 
 				<p><?php echo esc_html( get_field( 'quality_text' ) ); ?></p>
 			<?php endif; ?>
 
-			<?php if ( have_rows( 'quality_list' ) ) : ?>
+			<?php if ( $quality_items ) : ?>
 				<ul class="info-list">
-					<?php while ( have_rows( 'quality_list' ) ) : the_row(); ?>
-						<li><strong><?php echo esc_html( get_sub_field( 'label' ) ); ?></strong> <?php echo esc_html( get_sub_field( 'text' ) ); ?></li>
-					<?php endwhile; ?>
+					<?php foreach ( $quality_items as $item ) : ?>
+						<li><strong><?php echo esc_html( $item['label'] ); ?></strong> <?php echo esc_html( $item['text'] ); ?></li>
+					<?php endforeach; ?>
 				</ul>
 			<?php endif; ?>
 		</div>

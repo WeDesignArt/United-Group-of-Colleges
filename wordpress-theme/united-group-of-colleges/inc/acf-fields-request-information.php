@@ -51,18 +51,23 @@ acf_add_local_field_group( array(
 		// ---- What happens next ----
 		array( 'key' => 'field_reqinfo_tab_next', 'label' => 'What Happens Next', 'type' => 'tab' ),
 		array( 'key' => 'field_reqinfo_next_title', 'label' => 'Column Title', 'name' => 'next_steps_title', 'type' => 'text', 'default_value' => 'What Happens Next' ),
-		array(
-			'key'          => 'field_reqinfo_next_steps',
-			'label'        => 'Steps',
-			'name'         => 'next_steps',
-			'type'         => 'repeater',
-			'layout'       => 'block',
-			'button_label' => 'Add Step',
-			'sub_fields'   => array(
-				array( 'key' => 'field_reqinfo_next_step_label', 'label' => 'Label', 'name' => 'label', 'type' => 'text' ),
-				array( 'key' => 'field_reqinfo_next_step_text', 'label' => 'Text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2 ),
-			),
-		),
+
+		array( 'key' => 'field_reqinfo_next_step1', 'label' => 'Step 1', 'name' => 'next_step_1', 'type' => 'group', 'sub_fields' => array(
+			array( 'key' => 'field_reqinfo_next_step1_label', 'label' => 'Label', 'name' => 'label', 'type' => 'text' ),
+			array( 'key' => 'field_reqinfo_next_step1_text', 'label' => 'Text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2 ),
+		) ),
+		array( 'key' => 'field_reqinfo_next_step2', 'label' => 'Step 2', 'name' => 'next_step_2', 'type' => 'group', 'sub_fields' => array(
+			array( 'key' => 'field_reqinfo_next_step2_label', 'label' => 'Label', 'name' => 'label', 'type' => 'text' ),
+			array( 'key' => 'field_reqinfo_next_step2_text', 'label' => 'Text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2 ),
+		) ),
+		array( 'key' => 'field_reqinfo_next_step3', 'label' => 'Step 3', 'name' => 'next_step_3', 'type' => 'group', 'sub_fields' => array(
+			array( 'key' => 'field_reqinfo_next_step3_label', 'label' => 'Label', 'name' => 'label', 'type' => 'text' ),
+			array( 'key' => 'field_reqinfo_next_step3_text', 'label' => 'Text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2 ),
+		) ),
+		array( 'key' => 'field_reqinfo_next_step4', 'label' => 'Step 4', 'name' => 'next_step_4', 'type' => 'group', 'sub_fields' => array(
+			array( 'key' => 'field_reqinfo_next_step4_label', 'label' => 'Label', 'name' => 'label', 'type' => 'text' ),
+			array( 'key' => 'field_reqinfo_next_step4_text', 'label' => 'Text', 'name' => 'text', 'type' => 'textarea', 'rows' => 2 ),
+		) ),
 
 		// ---- Direct contact channels ----
 		array( 'key' => 'field_reqinfo_tab_contact', 'label' => 'Direct Contact Channels', 'type' => 'tab' ),
