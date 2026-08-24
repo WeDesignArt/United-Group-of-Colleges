@@ -47,6 +47,8 @@ acf_add_local_field_group( array(
 			'type'         => 'message',
 			'message'      => 'The form fields themselves (name, phone, email, city, campus model, etc.) are fixed in the template — this page only controls the heading and submit button text around it.',
 		),
+		array( 'key' => 'field_reqinfo_success_title', 'label' => 'Success Message Title', 'name' => 'success_title', 'type' => 'text', 'default_value' => 'Your Request Has Been Received' ),
+		array( 'key' => 'field_reqinfo_success_text', 'label' => 'Success Message Text', 'name' => 'success_text', 'type' => 'textarea', 'rows' => 2, 'default_value' => 'Thank you for reaching out to United Group of Colleges. Our franchise expansion team will review your details and get back to you shortly.', 'instructions' => 'Shown in place of the form after it is submitted (the form has no backend handler yet, so this is a front-end confirmation only).' ),
 
 		// ---- What happens next ----
 		array( 'key' => 'field_reqinfo_tab_next', 'label' => 'What Happens Next', 'type' => 'tab' ),

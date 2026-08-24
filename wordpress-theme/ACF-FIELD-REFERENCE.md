@@ -10,7 +10,9 @@ Every field group below is **already registered in code** (`inc/acf-fields-*.php
 
 ---
 
-## Theme Settings *(Appearance → Theme Settings — site-wide, not tied to a page)*
+## Theme Settings *(Appearance → Customize → "Theme Settings" panel — site-wide, not tied to a page)*
+
+> These aren't ACF fields — ACF Options Pages need ACF PRO, so this set lives in the native WordPress **Customizer** instead (works on any ACF tier). Everything else on this page (all 6 page templates below) is unaffected and still ACF, since Group fields are free-tier.
 
 **Header**
 - Header Logo — Image
@@ -26,6 +28,11 @@ Every field group below is **already registered in code** (`inc/acf-fields-*.php
 - YouTube URL — Link *(URL)*
 - LinkedIn URL — Link *(URL)*
 - Copyright Text — Text
+
+**Forms**
+- reCAPTCHA Site Key — Text
+- reCAPTCHA Secret Key — Text
+- *(both optional — see "Leads & the Request Information form" near the end of this document)*
 
 ---
 
@@ -258,6 +265,8 @@ Every field group below is **already registered in code** (`inc/acf-fields-*.php
 **Application Form**
 - Form Section Title — Text
 - Submit Button Text — Text
+- Success Message Title — Text
+- Success Message Text — Text Area
 - *(the actual inputs — name, phone, email, city, campus model, etc. — are fixed in the template, not ACF fields)*
 
 **What Happens Next**
@@ -280,3 +289,57 @@ Every field group below is **already registered in code** (`inc/acf-fields-*.php
 ## Headings with a highlighted word/phrase
 
 A handful of the "Heading" fields above are plain **Text** fields, but the original design colors part of the heading (e.g. "Campus Models Tailored to **Your Market**"). Those fields come pre-filled with `<span class="text-accent">…</span>` (or `text_accent` on the Franchise Opportunity and Request Information pages — those two use the older class name) already wrapped around the highlighted words. Edit the wording in place and leave the `<span>` tags where they are; removing the tags just removes the color, and plain text elsewhere in the same field is safe.
+
+---
+
+## Footer Menu vs. Theme Settings — two different screens
+
+The footer has two kinds of content, and they live in two different places in wp-admin. This trips people up because both *look* like they belong in "Menus":
+
+**Appearance → Menus** — only the clickable **links** (Home / About / Franchise Programmed / etc.). Create a menu, add pages/custom links to it, then under **Menu Settings** at the bottom tick **"Footer Menu"** and Save. This is the flat row of links, nothing else.
+
+**Appearance → Customize → Theme Settings → Footer** — everything else in the footer that *isn't* a link: the logo, description paragraph, email address, the four social icons, and the copyright line. *(Not a separate admin-menu item — it's a panel inside the Customizer, because ACF Options Pages need PRO. See the note at the top of the "Theme Settings" section above.)* Fill in:
+- Footer Logo
+- Footer Description
+- Footer Email
+- Facebook URL / Instagram URL / YouTube URL / LinkedIn URL
+- Copyright Text
+
+Both need to be filled in separately — adding items to the Footer Menu will never make the email/description/social icons appear, and vice versa. (Same split exists for the header: **Menus** → "Primary Menu (Header)" location for the nav links, **Customize → Theme Settings → Header** for the logo and "Partners with us" button.)
+
+---
+
+## Updating `assets/css/main.css`
+
+`main.css` (the base theme framework stylesheet, ~558KB) is already **inside the theme zip** at `assets/css/main.css`, and `functions.php` enqueues it automatically — there's nothing to upload separately in wp-admin for it to work. It's active as soon as the theme is activated.
+
+If you ever need to **replace it with an updated version** later, WordPress doesn't have a plugin/theme-upload flow for a single file — you edit the file directly where the theme lives:
+
+- **Local (XAMPP, this setup):** overwrite `C:\xampp\htdocs\ugc\wp-content\themes\united-group-of-colleges\assets\css\main.css` directly on disk.
+- **Live hosting:** connect via FTP or your host's File Manager and overwrite the same path (`wp-content/themes/united-group-of-colleges/assets/css/main.css`).
+
+Either way, just replace that one file — no re-zip or re-upload of the whole theme needed, and no WordPress admin screen involved. Hard-refresh the browser afterward (Ctrl+F5) since browsers cache CSS aggressively.
+
+---
+
+## Leads & the Request Information form
+
+The Request Information form actually submits and saves somewhere now — here's the full path a submission takes, and what you need to set up.
+
+**What happens when someone submits:**
+1. The form POSTs to `admin-post.php` (WordPress's standard way of handling a form submission that isn't a REST/AJAX call).
+2. `inc/leads-handler.php` checks a security nonce, then validates the required fields (name, phone, valid email, city) **server-side** — this is the check that actually matters; the `required` attributes on the inputs are just a nicer UX on top of it.
+3. If a reCAPTCHA secret key is configured (see below), the submitted token is verified against Google before continuing.
+4. A new **Lead** is saved (see below), and an email goes to your site's admin email.
+5. The visitor is redirected back to the same page with `?submitted=success` or `?submitted=error` in the URL — the template reads that flag and shows either the success message or an error notice above the form. No JavaScript is required for this to work.
+
+**Where submissions show up:** a new **Leads** item appears in the wp-admin sidebar (below Comments). Each submission is one entry; the list view shows Name / Phone / Email / City / Campus Model at a glance, and opening one shows every field that was submitted. Leads aren't public pages — they're private records, only visible in wp-admin.
+
+**Email notifications:** sent to whatever address is set at **Settings → General → Administration Email Address**. No extra setup needed — this is the same address WordPress already uses for its own account/password-reset emails.
+
+**reCAPTCHA (optional, but recommended before going live):**
+- Get a **free** Site Key + Secret Key at `google.com/recaptcha/admin` — register the domain the site will run on (for local testing, `localhost` works as a registered domain in reCAPTCHA's admin).
+- Paste them into **Appearance → Customize → Theme Settings → Forms**.
+- Leave both blank and the form still works fully (just without bot protection) — useful while testing locally. As soon as both keys are filled in, the checkbox widget appears on the form automatically and submissions are checked against it — no other change needed.
+
+**If you ever need to change what counts as "required":** that logic lives in `inc/leads-handler.php`, in the `if ( ! $full_name || ! $phone || ! is_email( $email ) || ! $city )` check near the top of `ugc_handle_lead_submission()`.

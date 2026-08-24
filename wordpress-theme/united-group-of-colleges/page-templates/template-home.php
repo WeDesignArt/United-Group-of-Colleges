@@ -5,7 +5,7 @@
 
 get_header();
 
-list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image' );
+list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image', 'United Group of Colleges', UGC_DEFAULT_HERO_IMAGE );
 ?>
 
 <!-- hero start -->
@@ -49,6 +49,18 @@ list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image' );
 <section class="simpler-way-section">
 	<div class="container">
 		<div class="section-heading">
+			<?php if ( get_field( 'simpler_way_badge' ) ) : ?>
+				<span class="section-badge"><?php echo esc_html( get_field( 'simpler_way_badge' ) ); ?></span>
+			<?php endif; ?>
+			<?php if ( get_field( 'simpler_way_badge_url' ) ) : ?>
+				<a class="section-badge-url" href="<?php echo esc_url( get_field( 'simpler_way_badge_url' ) ); ?>" target="_blank" rel="noopener"><?php echo esc_html( get_field( 'simpler_way_badge_url_label' ) ); ?></a>
+			<?php endif; ?>
+			<?php list( $simpler_badge_img, $simpler_badge_img_alt ) = ugc_image_field( 'simpler_way_badge_image', 'University of Southern Punjab' ); ?>
+			<?php if ( $simpler_badge_img ) : ?>
+				<div class="section-badge-image">
+					<img src="<?php echo esc_url( $simpler_badge_img ); ?>" alt="<?php echo esc_attr( $simpler_badge_img_alt ); ?>">
+				</div>
+			<?php endif; ?>
 			<?php ugc_accent_heading( 'simpler_way_heading', 'h2' ); ?>
 			<?php if ( get_field( 'simpler_way_text' ) ) : ?>
 				<p><?php echo esc_html( get_field( 'simpler_way_text' ) ); ?></p>
@@ -146,7 +158,7 @@ $timeline_steps = array_filter( $timeline_steps, function ( $s ) { return ! empt
 				list( $step_icon, $step_icon_alt ) = ugc_image_from_group( $step, 'icon', $step['title'] . ' icon' );
 				?>
 				<div class="timeline-row">
-					<div class="timeline-text timeline-text--left">
+					<div class="timeline-text timeline-text--left<?php echo $on_left ? '' : ' is_empty'; ?>">
 						<?php if ( $on_left ) : ?>
 							<h3><?php echo esc_html( $step['title'] ); ?></h3>
 							<p><?php echo esc_html( $step['text'] ); ?></p>
@@ -157,7 +169,7 @@ $timeline_steps = array_filter( $timeline_steps, function ( $s ) { return ! empt
 							<img src="<?php echo esc_url( $step_icon ); ?>" alt="<?php echo esc_attr( $step_icon_alt ); ?>">
 						<?php endif; ?>
 					</div>
-					<div class="timeline-text timeline-text--right">
+					<div class="timeline-text timeline-text--right<?php echo $on_left ? ' is_empty' : ''; ?>">
 						<?php if ( ! $on_left ) : ?>
 							<h3><?php echo esc_html( $step['title'] ); ?></h3>
 							<p><?php echo esc_html( $step['text'] ); ?></p>

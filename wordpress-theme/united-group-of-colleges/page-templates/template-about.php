@@ -5,7 +5,7 @@
 
 get_header();
 
-list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image', 'Students walking towards UGC campus building' );
+list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image', 'Students walking towards UGC campus building', UGC_DEFAULT_HERO_IMAGE );
 ?>
 
 <!-- ===================== PAGE HERO SECTION ===================== -->

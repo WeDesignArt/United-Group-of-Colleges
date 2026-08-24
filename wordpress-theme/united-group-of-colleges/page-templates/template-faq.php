@@ -5,7 +5,7 @@
 
 get_header();
 
-list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image', 'UGC campus' );
+list( $hero_img, $hero_alt ) = ugc_image_field( 'hero_image', 'UGC campus', UGC_DEFAULT_HERO_IMAGE );
 
 $faq_items = array();
 for ( $n = 1; $n <= 10; $n++ ) {

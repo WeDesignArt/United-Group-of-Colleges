@@ -16,6 +16,24 @@
 <body <?php body_class(); ?>>
 <?php wp_body_open(); ?>
 
+	<?php
+	$footer_whatsapp = get_theme_mod( 'footer_whatsapp' );
+	$is_request_info_page = is_page_template( 'page-templates/template-request-information.php' );
+	$fillform_url = $is_request_info_page ? '#application-form' : ugc_url_for_template( 'page-templates/template-request-information.php' ) . '#application-form';
+	?>
+	<!-- Floating action buttons (every page) -->
+	<div class="floating-actions">
+		<a href="<?php echo esc_url( $fillform_url ); ?>" class="fillform-float" aria-label="<?php echo $is_request_info_page ? 'Jump to the application form' : 'Fill the franchise information form'; ?>">
+			<i class="ri-file-edit-line"></i>
+			<span>Fill Form</span>
+		</a>
+		<?php if ( $footer_whatsapp ) : ?>
+			<a href="https://wa.me/<?php echo esc_attr( preg_replace( '/\D/', '', $footer_whatsapp ) ); ?>" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+				<i class="ri-whatsapp-line"></i>
+			</a>
+		<?php endif; ?>
+	</div>
+
 	<!-- main holder start -->
 	<div class="main_holder top_content_space">
 		<!-- header start -->
@@ -25,8 +43,8 @@
 					<div class="header_row">
 
 						<?php
-						$header_logo = get_field( 'header_logo', 'option' );
-						$logo_url    = ( is_array( $header_logo ) && ! empty( $header_logo['url'] ) ) ? $header_logo['url'] : get_template_directory_uri() . '/assets/images/logo-ugc.png';
+						$header_logo = get_theme_mod( 'header_logo' );
+						$logo_url    = $header_logo ? $header_logo : get_template_directory_uri() . '/assets/images/logo-ugc.png';
 						?>
 						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="logo">
 							<img src="<?php echo esc_url( $logo_url ); ?>" alt="<?php bloginfo( 'name' ); ?>">
@@ -42,8 +60,8 @@
 								'fallback_cb'    => false,
 							) );
 
-							$partner_text = get_field( 'partner_button_text', 'option' );
-							$partner_url  = get_field( 'partner_button_url', 'option' );
+							$partner_text = get_theme_mod( 'partner_button_text', 'Partners with us' );
+							$partner_url  = get_theme_mod( 'partner_button_url' );
 							?>
 							<!-- duplicated inside the panel so the CTA stays reachable on mobile -->
 							<a href="<?php echo $partner_url ? esc_url( $partner_url ) : 'javascript:void(0);'; ?>" class="btn_partner btn_partner_stacked">

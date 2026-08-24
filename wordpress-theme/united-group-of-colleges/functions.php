@@ -10,6 +10,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'UGC_THEME_VERSION', '1.0.0' );
 
 /**
+ * Site-wide fallback hero banner — shown on any page whose "Hero Image"
+ * ACF field hasn't been filled in yet, instead of leaving that area blank.
+ */
+define( 'UGC_DEFAULT_HERO_IMAGE', 'https://unitedcolleges.com.pk/wp-content/uploads/2026/08/Full-Campus-with-Professional-Programs-Banner.png' );
+
+/**
  * Theme setup.
  */
 function ugc_theme_setup() {
@@ -41,6 +47,12 @@ function ugc_theme_assets() {
 	// so there's no need to ship a separate jquery.js file.
 	wp_enqueue_script( 'ugc-vendor', get_template_directory_uri() . '/assets/js/vendor.js', array( 'jquery' ), UGC_THEME_VERSION, true );
 	wp_enqueue_script( 'ugc-app', get_template_directory_uri() . '/assets/js/app.js', array( 'jquery', 'ugc-vendor' ), UGC_THEME_VERSION, true );
+
+	// reCAPTCHA widget script — only on the Request Information page, and
+	// only once a site key is actually configured in Theme Settings.
+	if ( is_page_template( 'page-templates/template-request-information.php' ) && get_theme_mod( 'recaptcha_site_key' ) ) {
+		wp_enqueue_script( 'google-recaptcha', 'https://www.google.com/recaptcha/api.js', array(), null, true );
+	}
 }
 add_action( 'wp_enqueue_scripts', 'ugc_theme_assets' );
 
@@ -78,9 +90,19 @@ class UGC_Flat_Link_Walker extends Walker_Nav_Menu {
 }
 
 /**
- * ACF field groups and options page.
+ * Site-wide header/footer settings (Customizer — no ACF tier requirement).
  */
-require_once get_template_directory() . '/inc/acf-fields-options.php';
+require_once get_template_directory() . '/inc/customizer.php';
+
+/**
+ * "Leads" custom post type + Request Information form handler.
+ */
+require_once get_template_directory() . '/inc/leads-cpt.php';
+require_once get_template_directory() . '/inc/leads-handler.php';
+
+/**
+ * ACF field groups, one per page template.
+ */
 require_once get_template_directory() . '/inc/acf-fields-home.php';
 require_once get_template_directory() . '/inc/acf-fields-about.php';
 require_once get_template_directory() . '/inc/acf-fields-franchise.php';
@@ -104,14 +126,16 @@ function ugc_accent_heading( $field_name, $tag = 'h2', $extra_class = '' ) {
 
 /**
  * Small helper: resolve an ACF image field (array return format) down to a
- * [url, alt] pair, whether a field is filled in or not.
+ * [url, alt] pair, whether a field is filled in or not. Pass $fallback_url
+ * to get a specific image back instead of an empty string when the field
+ * is blank (used for hero banners — see UGC_DEFAULT_HERO_IMAGE).
  */
-function ugc_image_field( $field_name, $fallback_alt = '' ) {
+function ugc_image_field( $field_name, $fallback_alt = '', $fallback_url = '' ) {
 	$img = get_field( $field_name );
 	if ( is_array( $img ) && ! empty( $img['url'] ) ) {
 		return array( $img['url'], $img['alt'] ? $img['alt'] : $fallback_alt );
 	}
-	return array( '', $fallback_alt );
+	return array( $fallback_url, $fallback_alt );
 }
 
 /**
@@ -128,4 +152,29 @@ function ugc_image_from_group( $group, $key, $fallback_alt = '' ) {
 		return array( $img['url'], $img['alt'] ? $img['alt'] : $fallback_alt );
 	}
 	return array( '', $fallback_alt );
+}
+
+/**
+ * Finds whichever page has a given page template assigned and returns its
+ * permalink — used for the "Fill Form" floating button so it always points
+ * at the real Request Information page regardless of what slug/URL it was
+ * given, instead of a hardcoded path that breaks if the page gets renamed.
+ */
+function ugc_url_for_template( $template_file ) {
+	static $cache = array();
+	if ( isset( $cache[ $template_file ] ) ) {
+		return $cache[ $template_file ];
+	}
+
+	$pages = get_posts( array(
+		'post_type'      => 'page',
+		'post_status'    => 'publish',
+		'posts_per_page' => 1,
+		'meta_key'       => '_wp_page_template',
+		'meta_value'     => $template_file,
+	) );
+
+	$url = $pages ? get_permalink( $pages[0] ) : home_url( '/' );
+	$cache[ $template_file ] = $url;
+	return $url;
 }

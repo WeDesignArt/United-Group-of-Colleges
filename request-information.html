@@ -23,6 +23,14 @@
 </head>
 
 <body>
+	<!-- Floating action buttons -->
+	<div class="floating-actions">
+		<a href="#application-form" class="fillform-float" aria-label="Jump to the application form">
+			<i class="ri-file-edit-line"></i>
+			<span>Fill Form</span>
+		</a>
+	</div>
+
 	<!-- main holder start -->
 	<div class="main_holder top_content_space">
 		<!-- header start -->
@@ -120,7 +128,7 @@
 			</section>
 
 			<!-- ===================== APPLICATION FORM ===================== -->
-			<section class="app_form_section section_gray">
+			<section class="app_form_section section_gray" id="application-form">
 				<div class="container">
 
 					<h2 class="app_form_title">Franchise Application Form</h2>
@@ -330,8 +338,29 @@
 						</div>
 					</form>
 
+					<div class="form_success" id="requestFormSuccess">
+						<span class="form_success_icon" aria-hidden="true"><i class="ri-checkbox-circle-fill"></i></span>
+						<h3 class="form_success_title">Your Request Has Been Received</h3>
+						<p class="form_success_text">Thank you for reaching out to United Group of Colleges. Our franchise expansion team will review your details and get back to you shortly.</p>
+					</div>
+
 				</div>
 			</section>
+
+			<script>
+				document.addEventListener('DOMContentLoaded', function () {
+					var form = document.querySelector('.app_form');
+					var success = document.getElementById('requestFormSuccess');
+					if (!form || !success) return;
+
+					form.addEventListener('submit', function (e) {
+						e.preventDefault();
+						form.hidden = true;
+						success.classList.add('is_visible');
+						success.scrollIntoView({ behavior: 'smooth', block: 'start' });
+					});
+				});
+			</script>
 
 			<!-- ===================== NEXT STEPS + CONTACT ===================== -->
 			<section class="contact_section">
@@ -442,7 +471,11 @@
 					<a href="#">Contact Us</a>
 				</nav>
 
-				<p class="footer-email"><span>Email :</span> info@unitedcolleges.com.pk</p>
+				<div class="footer-contact-row">
+					<p class="footer-whatsapp"><span>WhatsApp :</span> <a href="https://wa.me/923009759999" target="_blank" rel="noopener">03009759999</a></p>
+					<p class="footer-email"><span>Email :</span> info@unitedcolleges.com.pk</p>
+					<p class="footer-office"><span>Head Office :</span> 9-KM, Bosan Rd, Khayaban e Yusuf, Multan, Pakistan</p>
+				</div>
 
 				<div class="footer-social">
 					<a href="#" aria-label="Facebook"><i class="ri-facebook-circle-fill"></i></a>

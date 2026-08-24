@@ -33,6 +33,10 @@ acf_add_local_field_group( array(
 
 		// ---- A Simpler Way ----
 		array( 'key' => 'field_home_tab_simpler', 'label' => 'A Simpler Way Section', 'type' => 'tab' ),
+		array( 'key' => 'field_home_simpler_badge', 'label' => 'Badge Text', 'name' => 'simpler_way_badge', 'type' => 'text', 'default_value' => 'A project of the governing group of the university of southern Punjab, Multan' ),
+		array( 'key' => 'field_home_simpler_badge_url_label', 'label' => 'Badge Link Text', 'name' => 'simpler_way_badge_url_label', 'type' => 'text', 'default_value' => 'www.usp.edu.pk' ),
+		array( 'key' => 'field_home_simpler_badge_url', 'label' => 'Badge Link', 'name' => 'simpler_way_badge_url', 'type' => 'url', 'default_value' => 'https://www.usp.edu.pk' ),
+		array( 'key' => 'field_home_simpler_badge_image', 'label' => 'Badge Image', 'name' => 'simpler_way_badge_image', 'type' => 'image', 'return_format' => 'array' ),
 		array(
 			'key'          => 'field_home_simpler_heading',
 			'label'        => 'Heading',
