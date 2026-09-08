@@ -1531,4 +1531,244 @@ h3 {
   }
 }
 
+/* ==========================================================================
+   Header nav — one extra item (Blog) needs a bit more breathing room than
+   the theme's own compact-font breakpoint gives it right around 1440px.
+   ========================================================================== */
+
+.main_nav_list {
+  gap: clamp(6px, 1vw, 20px) !important;
+}
+
+.main_nav_list > li > a {
+  font-size: 0.875rem;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* ==========================================================================
+   Blog — Cards, Pagination, Single Post
+   ========================================================================== */
+
+.blog-grid {
+  align-items: stretch;
+}
+
+.blog-card {
+  background-color: var(--white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(20, 20, 60, 0.06);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 28px rgba(20, 20, 60, 0.12);
+}
+
+.blog-card__image {
+  display: block;
+  height: 200px;
+  overflow: hidden;
+}
+
+.blog-card__image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.blog-card:hover .blog-card__image img {
+  transform: scale(1.06);
+}
+
+.blog-card__body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.blog-card__category {
+  display: inline-block;
+  color: var(--navy);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.blog-card__body h3 {
+  font-size: 1.1rem;
+  line-height: 1.35;
+  margin-bottom: 10px;
+}
+
+.blog-card__body h3 a {
+  color: var(--text-dark);
+  text-decoration: none;
+}
+
+.blog-card__body h3 a:hover {
+  color: var(--navy);
+}
+
+.blog-card__excerpt {
+  font-size: 0.88rem;
+  color: var(--text-body);
+  margin-bottom: 16px;
+  flex: 1;
+}
+
+.blog-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-bottom: 14px;
+}
+
+.blog-card__meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.blog-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--navy);
+  font-weight: 600;
+  font-size: 0.88rem;
+  text-decoration: none;
+}
+
+.blog-card__link i {
+  transition: transform 0.2s ease;
+}
+
+.blog-card__link:hover i {
+  transform: translateX(3px);
+}
+
+.blog-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 48px;
+}
+
+.blog-pagination__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 40px;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 50px;
+  background-color: var(--white);
+  color: var(--text-body);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(20, 20, 60, 0.06);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.blog-pagination__link:hover,
+.blog-pagination__link.is_active {
+  background-color: var(--navy);
+  color: var(--white);
+}
+
+.blog-pagination__next {
+  width: auto;
+  padding: 0 18px;
+}
+
+/* Single post */
+
+.blog-post-section {
+  padding: 90px 0 40px;
+}
+
+.blog-post {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.blog-post__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--navy);
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  margin-bottom: 24px;
+}
+
+.blog-post__back:hover {
+  text-decoration: underline;
+}
+
+.blog-post__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  padding-bottom: 24px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.blog-post__meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.blog-post__content p {
+  font-size: 1rem;
+  color: var(--text-body);
+  margin-bottom: 20px;
+}
+
+.blog-post__content h3 {
+  font-size: 1.4rem;
+  margin: 36px 0 16px;
+}
+
+.blog-post__content img {
+  width: 100%;
+  border-radius: var(--radius-lg);
+  margin: 8px 0 28px;
+}
+
+.blog-post__content .highlight-box {
+  margin: 8px 0 28px;
+}
+
+@media (max-width: 576px) {
+  .blog-post-section {
+    padding: 56px 0 24px;
+  }
+
+  .blog-post__content h3 {
+    font-size: 1.2rem;
+  }
+}
+
 

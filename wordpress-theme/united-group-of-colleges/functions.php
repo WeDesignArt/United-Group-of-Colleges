@@ -95,10 +95,11 @@ class UGC_Flat_Link_Walker extends Walker_Nav_Menu {
 require_once get_template_directory() . '/inc/customizer.php';
 
 /**
- * "Leads" custom post type + Request Information form handler.
+ * "Leads" custom post type + Request Information form handler + CSV Export.
  */
 require_once get_template_directory() . '/inc/leads-cpt.php';
 require_once get_template_directory() . '/inc/leads-handler.php';
+require_once get_template_directory() . '/inc/leads-export.php';
 
 /**
  * ACF field groups, one per page template.
