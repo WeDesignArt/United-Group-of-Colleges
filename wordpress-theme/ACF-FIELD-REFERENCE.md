@@ -343,3 +343,25 @@ The Request Information form actually submits and saves somewhere now — here's
 - Leave both blank and the form still works fully (just without bot protection) — useful while testing locally. As soon as both keys are filled in, the checkbox widget appears on the form automatically and submissions are checked against it — no other change needed.
 
 **If you ever need to change what counts as "required":** that logic lives in `inc/leads-handler.php`, in the `if ( ! $full_name || ! $phone || ! is_email( $email ) || ! $city )` check near the top of `ugc_handle_lead_submission()`.
+
+---
+
+## Setting Up the Blog
+
+The blog is **not** one of the 7 page templates — it's built entirely on WordPress's native **Posts** (the same content type every WordPress site ships with), because that's the correct way to do a blog: each article is a real Post, editable in the normal post editor, with categories, a featured image, and an excerpt — no custom field group needed for the article body itself.
+
+**One-time setup (required — the blog won't appear until you do this):**
+1. Create a new **Page** (title it "Blog", or whatever you want the nav label to say) — leave it blank, no template needed, don't put any content in it.
+2. Go to **Settings → Reading** → set **"Your homepage displays"** stays as-is, but set the **"Posts page"** dropdown to the page you just created → Save Changes.
+3. That page's URL now automatically shows the blog listing (via `home.php` in the theme) — its own **Title** becomes the hero banner heading, and its **Featured Image** (if you set one) becomes the hero banner background; otherwise the sitewide fallback hero image is used.
+4. Add a **"Blog"** item to your Primary Menu (**Appearance → Menus**) pointing at that same page, same way you added every other nav link.
+
+**Writing a post:** **Posts → Add New**, same editor as any WordPress post — set a **Featured Image** (shows on the blog card and as the single-post hero), assign a **Category** (shows as the small label on the card — e.g. "Campus Life", "Education", "Franchise Insights", or your own), write an **Excerpt** in the Excerpt panel (if you skip it, WordPress auto-generates one from the content), and write the article body normally.
+
+**Key Takeaway box (optional, per-post):** every Post's edit screen has a small **"Key Takeaway (optional)"** field group — Title (defaults to "Key Takeaway") and Text. Fill in the Text field to show a highlighted callout box at the end of the article (matching the "First-Mover Advantage" style box used elsewhere on the site); leave it blank and no box renders at all.
+
+**Read time:** calculated automatically from the word count of each post (~200 words/minute) — nothing to fill in.
+
+**Related Articles:** on each single post, this pulls 3 other posts from the **same category** automatically; if there aren't 3 yet in that category, it fills in with the most recent posts from anywhere on the blog. No manual "related posts" picker needed.
+
+**Pagination:** WordPress paginates the blog listing automatically once you have more posts than fit on one page (default 10 — change under **Settings → Reading → "Blog pages show at most"**).

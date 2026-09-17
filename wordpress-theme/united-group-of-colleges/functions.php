@@ -110,6 +110,7 @@ require_once get_template_directory() . '/inc/acf-fields-franchise.php';
 require_once get_template_directory() . '/inc/acf-fields-programmes.php';
 require_once get_template_directory() . '/inc/acf-fields-faq.php';
 require_once get_template_directory() . '/inc/acf-fields-request-information.php';
+require_once get_template_directory() . '/inc/acf-fields-post.php';
 
 /**
  * Small helper: print an ACF text field that may contain a hand-authored
@@ -178,4 +179,22 @@ function ugc_url_for_template( $template_file ) {
 	$url = $pages ? get_permalink( $pages[0] ) : home_url( '/' );
 	$cache[ $template_file ] = $url;
 	return $url;
+}
+
+/**
+ * URL of the blog listing (Settings → Reading → "Posts page"). Falls back
+ * to the homepage if no Posts page has been set yet.
+ */
+function ugc_blog_url() {
+	$page_id = (int) get_option( 'page_for_posts' );
+	return $page_id ? get_permalink( $page_id ) : home_url( '/' );
+}
+
+/**
+ * Rough "X min read" estimate from a post's word count (~200 words/minute),
+ * used on blog cards and the single-post meta row.
+ */
+function ugc_reading_time( $content ) {
+	$word_count = str_word_count( wp_strip_all_tags( $content ) );
+	return max( 1, (int) ceil( $word_count / 200 ) );
 }
